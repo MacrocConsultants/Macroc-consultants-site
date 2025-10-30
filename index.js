@@ -118,7 +118,7 @@ export default function Home() {
                 <button type="submit" className="px-5 py-2 bg-macrocGold text-white rounded">Send message</button>
               </div>
 
-              <p className="mt-3 text-xs text-slate-500">This form will send messages to your Formspree endpoint. Replace <code>your-form-id</code> with your actual Formspree form ID.</p>
+              <p className="mt-3 text-xs text-slate-500">This form will send messages to your Formspree endpoint. Replace <code>mwpwnqnj</code> with your actual Formspree form ID.</p>
             </form>
 
             <div className="p-6 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-slate-100">
