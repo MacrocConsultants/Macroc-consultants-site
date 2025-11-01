@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
-  const FORM_ENDPOINT = "https://formspree.io/f/xldowwje";
+  const FORM_ENDPOINT = "https://formspree.io/f/xldowwje"; // ✅ Replace with your real endpoint if needed
   const EMAIL = "info@macroc.in";
   const [toast, setToast] = useState({ show: false, type: "", message: "" });
 
@@ -10,23 +11,19 @@ export default function Home() {
     setTimeout(() => setToast({ show: false, type: "", message: "" }), 4000);
   };
 
+  // ✅ Fixed: Using FormData instead of JSON
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const data = {
-      name: form.name.value,
-      email: form.email.value,
-      message: form.message.value,
-    };
+    const data = new FormData(form);
 
     try {
       const response = await fetch(FORM_ENDPOINT, {
         method: "POST",
+        body: data,
         headers: {
-          "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify(data),
       });
 
       if (response.ok) {
@@ -35,7 +32,7 @@ export default function Home() {
       } else {
         showToast("error", "⚠️ Error submitting form. Try again.");
       }
-    } catch {
+    } catch (err) {
       showToast("error", "⚠️ Network issue. Please retry.");
     }
   };
@@ -43,15 +40,21 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50 relative">
       {/* ✅ Toast Notification */}
-      {toast.show && (
-        <div
-          className={`fixed top-6 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-lg shadow-lg text-white transition-all duration-500 ${
-            toast.type === "success" ? "bg-green-600" : "bg-red-600"
-          } ${toast.show ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}
-        >
-          {toast.message}
-        </div>
-      )}
+      <AnimatePresence>
+        {toast.show && (
+          <motion.div
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 20, opacity: 1 }}
+            exit={{ y: -50, opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-lg shadow-lg text-white ${
+              toast.type === "success" ? "bg-green-600" : "bg-red-600"
+            }`}
+          >
+            {toast.message}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* HEADER */}
       <header className="max-w-6xl mx-auto px-6 py-8 flex items-center justify-between">
@@ -67,9 +70,15 @@ export default function Home() {
           </div>
         </div>
         <nav className="hidden md:flex gap-6 text-sm text-slate-700">
-          <a href="#services" className="hover:text-macrocGreen">Services</a>
-          <a href="#about" className="hover:text-macrocGreen">About</a>
-          <a href="#contact" className="hover:text-macrocGreen">Contact</a>
+          <a href="#services" className="hover:text-macrocGreen">
+            Services
+          </a>
+          <a href="#about" className="hover:text-macrocGreen">
+            About
+          </a>
+          <a href="#contact" className="hover:text-macrocGreen">
+            Contact
+          </a>
         </nav>
       </header>
 
@@ -109,7 +118,9 @@ export default function Home() {
           <div className="flex-1">
             <div className="w-full h-72 md:h-80 rounded-2xl bg-gradient-to-br from-macrocGreen to-indigo-600 shadow-xl flex items-center justify-center text-white">
               <div className="p-6 max-w-xs text-center animate-pulse">
-                <h3 className="text-2xl font-bold">Premium Financial Insights</h3>
+                <h3 className="text-2xl font-bold">
+                  Premium Financial Insights
+                </h3>
                 <p className="mt-3 text-sm">
                   Data-driven decisions. Tailored strategies.
                 </p>
@@ -126,15 +137,42 @@ export default function Home() {
           </p>
 
           <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <ServiceCard title="GST Registrations" desc="End-to-end GST registration services for businesses of all sizes." />
-            <ServiceCard title="Return Filings" desc="Timely and accurate GST/Statutory return filings to keep you compliant." />
-            <ServiceCard title="Income Tax Filings" desc="Individual and corporate income tax filing and optimisation services." />
-            <ServiceCard title="Virtual CFO Services" desc="Strategic financial leadership, forecasting and performance reporting." />
-            <ServiceCard title="Accounting & Bookkeeping" desc="Accurate bookkeeping and accounting to give you clean, reliable records." />
-            <ServiceCard title="Payroll Compliances" desc="Payroll processing and compliance with statutory requirements." />
-            <ServiceCard title="TDS/TCS Compliances" desc="Complete handling of TDS/TCS calculations, filings and reconciliations." />
-            <ServiceCard title="Internal Audit Services" desc="Independent internal audits to strengthen controls and processes." />
-            <ServiceCard title="Costing" desc="Product and service costing to support pricing and margin decisions." />
+            <ServiceCard
+              title="GST Registrations"
+              desc="End-to-end GST registration services for businesses of all sizes."
+            />
+            <ServiceCard
+              title="Return Filings"
+              desc="Timely and accurate GST/Statutory return filings to keep you compliant."
+            />
+            <ServiceCard
+              title="Income Tax Filings"
+              desc="Individual and corporate income tax filing and optimisation services."
+            />
+            <ServiceCard
+              title="Virtual CFO Services"
+              desc="Strategic financial leadership, forecasting and performance reporting."
+            />
+            <ServiceCard
+              title="Accounting & Bookkeeping"
+              desc="Accurate bookkeeping and accounting to give you clean, reliable records."
+            />
+            <ServiceCard
+              title="Payroll Compliances"
+              desc="Payroll processing and compliance with statutory requirements."
+            />
+            <ServiceCard
+              title="TDS/TCS Compliances"
+              desc="Complete handling of TDS/TCS calculations, filings and reconciliations."
+            />
+            <ServiceCard
+              title="Internal Audit Services"
+              desc="Independent internal audits to strengthen controls and processes."
+            />
+            <ServiceCard
+              title="Costing"
+              desc="Product and service costing to support pricing and margin decisions."
+            />
           </div>
         </section>
 
@@ -177,8 +215,15 @@ export default function Home() {
 
           <div className="mt-6 grid md:grid-cols-2 gap-8">
             {/* FORM */}
-            <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow">
-              <input type="hidden" name="_subject" value="New Contact Submission from Macroc.in" />
+            <form
+              onSubmit={handleSubmit}
+              className="bg-white p-6 rounded-lg shadow"
+            >
+              <input
+                type="hidden"
+                name="_subject"
+                value="New Contact Submission from Macroc.in"
+              />
               <input type="hidden" name="_gotcha" style={{ display: "none" }} />
 
               <label className="block text-sm font-medium text-slate-700">
