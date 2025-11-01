@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Home() {
-  const FORM_ENDPOINT = "https://formspree.io/f/xldowwje"; // <-- your Formspree endpoint
+  const FORM_ENDPOINT = "https://formspree.io/f/xldowwje"; // Your Formspree endpoint
   const EMAIL = "info@macroc.in";
 
   return (
@@ -26,7 +26,7 @@ export default function Home() {
         </nav>
       </header>
 
-      {/* Hero */}
+      {/* Hero Section */}
       <main>
         <section className="max-w-6xl mx-auto px-6 py-16 flex flex-col md:flex-row items-center gap-12">
           <div className="flex-1">
@@ -38,7 +38,7 @@ export default function Home() {
               <span className="text-macrocGreen">fiercy</span> precision
             </h2>
             <p className="mt-6 text-lg text-slate-600">
-              At Macroc Consultants we blend rigorous analysis with smart
+              At Macroc Consultants, we blend rigorous analysis with smart
               strategy to help individuals and businesses grow, protect, and
               optimise their wealth.
             </p>
@@ -78,7 +78,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Services */}
+        {/* Services Section */}
         <section id="services" className="max-w-6xl mx-auto px-6 py-12">
           <h3 className="text-2xl font-semibold">Our Services</h3>
           <p className="mt-2 text-slate-600">
@@ -125,7 +125,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* About */}
+        {/* About Section */}
         <section id="about" className="max-w-6xl mx-auto px-6 py-12">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
@@ -155,11 +155,11 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Contact Form */}
+        {/* Contact Form Section */}
         <section id="contact" className="max-w-6xl mx-auto px-6 py-12">
           <h3 className="text-2xl font-semibold">Contact Us</h3>
           <p className="mt-2 text-slate-600">
-            Ready to start? Send us a message and we’ll get back within 1 business day.
+            Ready to start? Send us a personalized message and we’ll respond within 1 business day.
           </p>
 
           <div className="mt-6 grid md:grid-cols-2 gap-8">
@@ -192,13 +192,12 @@ export default function Home() {
               <label className="block text-sm font-medium text-slate-700 mt-4">
                 Message
               </label>
-              {/* Formspree expects a "text" field, not "message" */}
               <textarea
-                name="text"
+                name="message"
                 required
                 className="mt-1 w-full border border-slate-200 rounded px-3 py-2"
                 rows={4}
-                placeholder="How can we help?"
+                placeholder="Write your message here..."
               />
 
               <div className="mt-4">
@@ -211,7 +210,7 @@ export default function Home() {
               </div>
 
               <p className="mt-3 text-xs text-slate-500">
-                Messages are securely sent to your Formspree inbox at{" "}
+                Messages will be sent securely to{" "}
                 <a href={`mailto:${EMAIL}`} className="text-macrocGreen">
                   {EMAIL}
                 </a>
@@ -228,9 +227,7 @@ export default function Home() {
                   {EMAIL}
                 </a>
               </p>
-              <p className="mt-2 text-slate-600">
-                Phone: 6300447014, 9035437253
-              </p>
+              <p className="mt-2 text-slate-600">Phone: 6300447014, 9035437253</p>
               <p className="mt-2 text-slate-600">
                 Address: Sri Pathi Rao Street, Oldpet, Palamaner, 517408
               </p>
