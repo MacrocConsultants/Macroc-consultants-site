@@ -104,7 +104,7 @@ export default function Home() {
           <p className="mt-2 text-slate-600">Ready to start? Send us a message and we’ll get back within 1 business day.</p>
 
           <div className="mt-6 grid md:grid-cols-2 gap-8">
-            <form className="bg-white p-6 rounded-lg shadow" method="POST" action={FORM_ENDPOINT="https://formspree.io/f/xldowwje";}>
+           <form className="bg-white p-6 rounded-lg shadow" method="POST" action="https://formspree.io/f/xldowwje">
               <label className="block text-sm font-medium text-slate-700">Your name</label>
               <input name="name" required className="mt-1 w-full border border-slate-200 rounded px-3 py-2" placeholder="Full name" />
 
