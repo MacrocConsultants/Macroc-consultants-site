@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
-  const FORM_ENDPOINT = "https://formspree.io/f/xldowwje"; // ✅ Verified endpoint
+  const FORM_ENDPOINT = "https://formspree.io/f/xldowwje"; // ✅ Verified Formspree endpoint
 
   return (
     <div className="min-h-screen">
@@ -47,7 +47,7 @@ export default function Home() {
             <div className="mt-8 flex gap-4">
               <a
                 href="#contact"
-                className="inline-block px-6 py-3 bg-macrocGreen text-white rounded-lg shadow hover:shadow-lg"
+                className="inline-block px-6 py-3 bg-macrocGreen text-white rounded-lg shadow hover:shadow-lg transition"
               >
                 Get a Consultation
               </a>
@@ -147,11 +147,11 @@ export default function Home() {
   );
 }
 
-/* ✅ Contact Form Component (with Modal) */
+/* ✅ Contact Form Component (Formspree Integrated + Modal) */
 function ContactForm({ endpoint }) {
   const [status, setStatus] = useState("idle");
   const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState("success"); // or 'error'
+  const [modalType, setModalType] = useState("success");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -171,9 +171,9 @@ function ContactForm({ endpoint }) {
         setShowModal(true);
         setStatus("success");
       } else {
-        throw new Error("Form submission failed");
+        throw new Error("Submission failed");
       }
-    } catch (error) {
+    } catch {
       setModalType("error");
       setShowModal(true);
       setStatus("error");
@@ -182,8 +182,13 @@ function ContactForm({ endpoint }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow">
-        <label className="block text-sm font-medium text-slate-700">Your name</label>
+      <form
+        onSubmit={handleSubmit}
+        action={endpoint}
+        method="POST"
+        className="bg-white p-6 rounded-lg shadow"
+      >
+        <label className="block text-sm font-medium text-slate-700">Your Name</label>
         <input
           name="name"
           required
@@ -236,18 +241,14 @@ function ContactForm({ endpoint }) {
             >
               {modalType === "success" ? (
                 <>
-                  <h3 className="text-xl font-semibold text-green-600">
-                    ✅ Message Sent!
-                  </h3>
+                  <h3 className="text-xl font-semibold text-green-600">✅ Message Sent!</h3>
                   <p className="mt-2 text-slate-600">
                     Thanks for contacting us — we’ll reach out soon.
                   </p>
                 </>
               ) : (
                 <>
-                  <h3 className="text-xl font-semibold text-red-600">
-                    ❌ Submission Failed
-                  </h3>
+                  <h3 className="text-xl font-semibold text-red-600">❌ Submission Failed</h3>
                   <p className="mt-2 text-slate-600">
                     Something went wrong. Please try again later.
                   </p>
@@ -268,7 +269,7 @@ function ContactForm({ endpoint }) {
   );
 }
 
-/* ✅ Office Info Card */
+/* ✅ Office Info Component */
 function OfficeInfo() {
   return (
     <div className="p-6 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-slate-100">
