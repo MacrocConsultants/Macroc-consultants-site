@@ -4,14 +4,44 @@ export default function Home() {
   const FORM_ENDPOINT = "https://formspree.io/f/xldowwje";
   const EMAIL = "info@macroc.in";
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
 
-  // Hide success message automatically after 5 seconds
+  // Hide messages automatically after 5 seconds
   useEffect(() => {
-    if (submitted) {
-      const timer = setTimeout(() => setSubmitted(false), 5000);
+    if (submitted || error) {
+      const timer = setTimeout(() => {
+        setSubmitted(false);
+        setError(false);
+      }, 5000);
       return () => clearTimeout(timer);
     }
-  }, [submitted]);
+  }, [submitted, error]);
+
+  // ✅ Fixed Form Submit Handler
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        body: formData, // ✅ send as multipart/form-data
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        form.reset();
+      } else {
+        setError(true);
+      }
+    } catch (err) {
+      setError(true);
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -43,11 +73,13 @@ export default function Home() {
               Financial Consultancy
             </p>
             <h2 className="mt-4 text-4xl md:text-5xl font-extrabold leading-tight">
-              Expertise forged with <span className="text-macrocGreen">fiercy</span> precision
+              Expertise forged with{" "}
+              <span className="text-macrocGreen">fiercy</span> precision
             </h2>
             <p className="mt-6 text-lg text-slate-600">
-              At Macroc Consultants we blend rigorous analysis with smart strategy
-              to help individuals and businesses grow, protect, and optimise their wealth.
+              At Macroc Consultants we blend rigorous analysis with smart
+              strategy to help individuals and businesses grow, protect, and
+              optimise their wealth.
             </p>
 
             <div className="mt-8 flex gap-4">
@@ -93,15 +125,42 @@ export default function Home() {
           </p>
 
           <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <ServiceCard title="GST Registrations" desc="End-to-end GST registration services for businesses of all sizes." />
-            <ServiceCard title="Return Filings" desc="Timely and accurate GST/Statutory return filings to keep you compliant." />
-            <ServiceCard title="Income Tax Filings" desc="Individual and corporate income tax filing and optimisation services." />
-            <ServiceCard title="Virtual CFO Services" desc="Strategic financial leadership, forecasting and performance reporting." />
-            <ServiceCard title="Accounting & Bookkeeping" desc="Accurate bookkeeping and accounting to give you clean, reliable records." />
-            <ServiceCard title="Payroll Compliances" desc="Payroll processing and compliance with statutory requirements." />
-            <ServiceCard title="TDS/TCS Compliances" desc="Complete handling of TDS/TCS calculations, filings and reconciliations." />
-            <ServiceCard title="Internal Audit Services" desc="Independent internal audits to strengthen controls and processes." />
-            <ServiceCard title="Costing" desc="Product and service costing to support pricing and margin decisions." />
+            <ServiceCard
+              title="GST Registrations"
+              desc="End-to-end GST registration services for businesses of all sizes."
+            />
+            <ServiceCard
+              title="Return Filings"
+              desc="Timely and accurate GST/Statutory return filings to keep you compliant."
+            />
+            <ServiceCard
+              title="Income Tax Filings"
+              desc="Individual and corporate income tax filing and optimisation services."
+            />
+            <ServiceCard
+              title="Virtual CFO Services"
+              desc="Strategic financial leadership, forecasting and performance reporting."
+            />
+            <ServiceCard
+              title="Accounting & Bookkeeping"
+              desc="Accurate bookkeeping and accounting to give you clean, reliable records."
+            />
+            <ServiceCard
+              title="Payroll Compliances"
+              desc="Payroll processing and compliance with statutory requirements."
+            />
+            <ServiceCard
+              title="TDS/TCS Compliances"
+              desc="Complete handling of TDS/TCS calculations, filings and reconciliations."
+            />
+            <ServiceCard
+              title="Internal Audit Services"
+              desc="Independent internal audits to strengthen controls and processes."
+            />
+            <ServiceCard
+              title="Costing"
+              desc="Product and service costing to support pricing and margin decisions."
+            />
           </div>
         </section>
 
@@ -111,9 +170,9 @@ export default function Home() {
             <div>
               <h3 className="text-2xl font-semibold">About Macroc Consultants</h3>
               <p className="mt-4 text-slate-600">
-                We combine industry expertise, robust analytics, and a client-first
-                approach to deliver financial strategies that are practical,
-                compliant, and growth-focused.
+                We combine industry expertise, robust analytics, and a
+                client-first approach to deliver financial strategies that are
+                practical, compliant, and growth-focused.
               </p>
 
               <ul className="mt-6 space-y-3 text-slate-700">
@@ -145,18 +204,22 @@ export default function Home() {
           <div className="mt-6 grid md:grid-cols-2 gap-8">
             {/* FORM */}
             <form
-              action={FORM_ENDPOINT}
-              method="POST"
+              onSubmit={handleSubmit}
               className="bg-white p-6 rounded-lg shadow"
-              onSubmit={() => setSubmitted(true)}
             >
               {submitted ? (
                 <div className="text-center text-green-600 font-medium">
                   ✅ Message sent successfully! We’ll get back soon.
                 </div>
+              ) : error ? (
+                <div className="text-center text-red-600 font-medium">
+                  ⚠️ There was an error submitting the form. Try again.
+                </div>
               ) : (
                 <>
-                  <label className="block text-sm font-medium text-slate-700">Your name</label>
+                  <label className="block text-sm font-medium text-slate-700">
+                    Your name
+                  </label>
                   <input
                     name="name"
                     required
@@ -164,7 +227,9 @@ export default function Home() {
                     placeholder="Full name"
                   />
 
-                  <label className="block text-sm font-medium text-slate-700 mt-4">Email</label>
+                  <label className="block text-sm font-medium text-slate-700 mt-4">
+                    Email
+                  </label>
                   <input
                     name="email"
                     required
@@ -173,7 +238,9 @@ export default function Home() {
                     placeholder="you@example.com"
                   />
 
-                  <label className="block text-sm font-medium text-slate-700 mt-4">Message</label>
+                  <label className="block text-sm font-medium text-slate-700 mt-4">
+                    Message
+                  </label>
                   <textarea
                     name="message"
                     required
@@ -203,7 +270,9 @@ export default function Home() {
                   {EMAIL}
                 </a>
               </p>
-              <p className="mt-2 text-slate-600">Phone: 6300447014, 9035437253</p>
+              <p className="mt-2 text-slate-600">
+                Phone: 6300447014, 9035437253
+              </p>
               <p className="mt-2 text-slate-600">
                 Address: Sri Pathi Rao Street, Oldpet, Palamaner, 517408
               </p>
@@ -224,7 +293,9 @@ export default function Home() {
       {/* FOOTER */}
       <footer className="border-t mt-12 py-6">
         <div className="max-w-6xl mx-auto px-6 text-sm text-slate-600 flex items-center justify-between">
-          <div>© {new Date().getFullYear()} Macroc Consultants. All rights reserved.</div>
+          <div>
+            © {new Date().getFullYear()} Macroc Consultants. All rights reserved.
+          </div>
           <div>Built for clarity · Powered by Vercel</div>
         </div>
       </footer>
@@ -232,6 +303,7 @@ export default function Home() {
   );
 }
 
+// ✅ Reusable Service Card
 function ServiceCard({ title, desc }) {
   return (
     <div className="p-5 bg-white rounded-lg shadow-sm border">
