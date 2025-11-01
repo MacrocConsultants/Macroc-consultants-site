@@ -1,33 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Home() {
-  const FORM_ENDPOINT = "https://formspree.io/f/xldowwje"; // ✅ your actual Formspree endpoint
+  const FORM_ENDPOINT = "https://formspree.io/f/xldowwje";
   const EMAIL = "info@macroc.in";
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const data = new FormData(form);
-
-    const response = await fetch(FORM_ENDPOINT, {
-      method: "POST",
-      body: data,
-      headers: {
-        Accept: "application/json",
-      },
-    });
-
-    if (response.ok) {
-      setSubmitted(true);
-      form.reset();
-    } else {
-      alert("There was an error submitting the form. Please try again.");
+  // Hide success message automatically after 5 seconds
+  useEffect(() => {
+    if (submitted) {
+      const timer = setTimeout(() => setSubmitted(false), 5000);
+      return () => clearTimeout(timer);
     }
-  };
+  }, [submitted]);
 
   return (
     <div className="min-h-screen">
+      {/* HEADER */}
       <header className="max-w-6xl mx-auto px-6 py-8 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-lg bg-macrocGreen flex items-center justify-center shadow-lg">
@@ -47,21 +35,19 @@ export default function Home() {
         </nav>
       </header>
 
+      {/* HERO */}
       <main>
-        {/* HERO SECTION */}
         <section className="max-w-6xl mx-auto px-6 py-16 flex flex-col md:flex-row items-center gap-12">
           <div className="flex-1">
             <p className="text-sm uppercase text-macrocGreen font-medium">
               Financial Consultancy
             </p>
             <h2 className="mt-4 text-4xl md:text-5xl font-extrabold leading-tight">
-              Expertise forged with{" "}
-              <span className="text-macrocGreen">fiercy</span> precision
+              Expertise forged with <span className="text-macrocGreen">fiercy</span> precision
             </h2>
             <p className="mt-6 text-lg text-slate-600">
-              At Macroc Consultants we blend rigorous analysis with smart
-              strategy to help individuals and businesses grow, protect, and
-              optimise their wealth.
+              At Macroc Consultants we blend rigorous analysis with smart strategy
+              to help individuals and businesses grow, protect, and optimise their wealth.
             </p>
 
             <div className="mt-8 flex gap-4">
@@ -90,9 +76,7 @@ export default function Home() {
           <div className="flex-1">
             <div className="w-full h-72 md:h-80 rounded-2xl bg-gradient-to-br from-macrocGreen to-indigo-600 shadow-xl flex items-center justify-center text-white">
               <div className="p-6 max-w-xs text-center animate-pulse">
-                <h3 className="text-2xl font-bold">
-                  Premium Financial Insights
-                </h3>
+                <h3 className="text-2xl font-bold">Premium Financial Insights</h3>
                 <p className="mt-3 text-sm">
                   Data-driven decisions. Tailored strategies.
                 </p>
@@ -101,7 +85,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SERVICES SECTION */}
+        {/* SERVICES */}
         <section id="services" className="max-w-6xl mx-auto px-6 py-12">
           <h3 className="text-2xl font-semibold">Our Services</h3>
           <p className="mt-2 text-slate-600">
@@ -109,54 +93,27 @@ export default function Home() {
           </p>
 
           <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <ServiceCard
-              title="GST Registrations"
-              desc="End-to-end GST registration services for businesses of all sizes."
-            />
-            <ServiceCard
-              title="Return Filings"
-              desc="Timely and accurate GST/Statutory return filings to keep you compliant."
-            />
-            <ServiceCard
-              title="Income Tax Filings"
-              desc="Individual and corporate income tax filing and optimisation services."
-            />
-            <ServiceCard
-              title="Virtual CFO Services"
-              desc="Strategic financial leadership, forecasting and performance reporting."
-            />
-            <ServiceCard
-              title="Accounting & Bookkeeping"
-              desc="Accurate bookkeeping and accounting to give you clean, reliable records."
-            />
-            <ServiceCard
-              title="Payroll Compliances"
-              desc="Payroll processing and compliance with statutory requirements."
-            />
-            <ServiceCard
-              title="TDS/TCS Compliances"
-              desc="Complete handling of TDS/TCS calculations, filings and reconciliations."
-            />
-            <ServiceCard
-              title="Internal Audit Services"
-              desc="Independent internal audits to strengthen controls and processes."
-            />
-            <ServiceCard
-              title="Costing"
-              desc="Product and service costing to support pricing and margin decisions."
-            />
+            <ServiceCard title="GST Registrations" desc="End-to-end GST registration services for businesses of all sizes." />
+            <ServiceCard title="Return Filings" desc="Timely and accurate GST/Statutory return filings to keep you compliant." />
+            <ServiceCard title="Income Tax Filings" desc="Individual and corporate income tax filing and optimisation services." />
+            <ServiceCard title="Virtual CFO Services" desc="Strategic financial leadership, forecasting and performance reporting." />
+            <ServiceCard title="Accounting & Bookkeeping" desc="Accurate bookkeeping and accounting to give you clean, reliable records." />
+            <ServiceCard title="Payroll Compliances" desc="Payroll processing and compliance with statutory requirements." />
+            <ServiceCard title="TDS/TCS Compliances" desc="Complete handling of TDS/TCS calculations, filings and reconciliations." />
+            <ServiceCard title="Internal Audit Services" desc="Independent internal audits to strengthen controls and processes." />
+            <ServiceCard title="Costing" desc="Product and service costing to support pricing and margin decisions." />
           </div>
         </section>
 
-        {/* ABOUT SECTION */}
+        {/* ABOUT */}
         <section id="about" className="max-w-6xl mx-auto px-6 py-12">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <h3 className="text-2xl font-semibold">About Macroc Consultants</h3>
               <p className="mt-4 text-slate-600">
-                We combine industry expertise, robust analytics, and a
-                client-first approach to deliver financial strategies that are
-                practical, compliant, and growth-focused.
+                We combine industry expertise, robust analytics, and a client-first
+                approach to deliver financial strategies that are practical,
+                compliant, and growth-focused.
               </p>
 
               <ul className="mt-6 space-y-3 text-slate-700">
@@ -178,18 +135,20 @@ export default function Home() {
           </div>
         </section>
 
-        {/* CONTACT SECTION */}
+        {/* CONTACT */}
         <section id="contact" className="max-w-6xl mx-auto px-6 py-12">
           <h3 className="text-2xl font-semibold">Contact Us</h3>
           <p className="mt-2 text-slate-600">
-            Ready to start? Send us a message and we’ll get back within 1
-            business day.
+            Ready to start? Send us a message and we’ll get back within 1 business day.
           </p>
 
           <div className="mt-6 grid md:grid-cols-2 gap-8">
+            {/* FORM */}
             <form
-              onSubmit={handleSubmit}
+              action={FORM_ENDPOINT}
+              method="POST"
               className="bg-white p-6 rounded-lg shadow"
+              onSubmit={() => setSubmitted(true)}
             >
               {submitted ? (
                 <div className="text-center text-green-600 font-medium">
@@ -197,9 +156,7 @@ export default function Home() {
                 </div>
               ) : (
                 <>
-                  <label className="block text-sm font-medium text-slate-700">
-                    Your name
-                  </label>
+                  <label className="block text-sm font-medium text-slate-700">Your name</label>
                   <input
                     name="name"
                     required
@@ -207,9 +164,7 @@ export default function Home() {
                     placeholder="Full name"
                   />
 
-                  <label className="block text-sm font-medium text-slate-700 mt-4">
-                    Email
-                  </label>
+                  <label className="block text-sm font-medium text-slate-700 mt-4">Email</label>
                   <input
                     name="email"
                     required
@@ -218,9 +173,7 @@ export default function Home() {
                     placeholder="you@example.com"
                   />
 
-                  <label className="block text-sm font-medium text-slate-700 mt-4">
-                    Message
-                  </label>
+                  <label className="block text-sm font-medium text-slate-700 mt-4">Message</label>
                   <textarea
                     name="message"
                     required
@@ -232,7 +185,7 @@ export default function Home() {
                   <div className="mt-4">
                     <button
                       type="submit"
-                      className="px-5 py-2 bg-macrocGold text-white rounded hover:bg-yellow-600"
+                      className="px-5 py-2 bg-macrocGold text-white rounded hover:bg-yellow-600 transition"
                     >
                       Send message
                     </button>
@@ -241,6 +194,7 @@ export default function Home() {
               )}
             </form>
 
+            {/* CONTACT INFO */}
             <div className="p-6 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-slate-100">
               <h4 className="font-semibold">Office</h4>
               <p className="mt-2 text-slate-600">
@@ -249,9 +203,7 @@ export default function Home() {
                   {EMAIL}
                 </a>
               </p>
-              <p className="mt-2 text-slate-600">
-                Phone: 6300447014, 9035437253
-              </p>
+              <p className="mt-2 text-slate-600">Phone: 6300447014, 9035437253</p>
               <p className="mt-2 text-slate-600">
                 Address: Sri Pathi Rao Street, Oldpet, Palamaner, 517408
               </p>
@@ -269,11 +221,10 @@ export default function Home() {
         </section>
       </main>
 
+      {/* FOOTER */}
       <footer className="border-t mt-12 py-6">
         <div className="max-w-6xl mx-auto px-6 text-sm text-slate-600 flex items-center justify-between">
-          <div>
-            © {new Date().getFullYear()} Macroc Consultants. All rights reserved.
-          </div>
+          <div>© {new Date().getFullYear()} Macroc Consultants. All rights reserved.</div>
           <div>Built for clarity · Powered by Vercel</div>
         </div>
       </footer>
