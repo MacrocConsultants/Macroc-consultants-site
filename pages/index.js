@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState } from "react";
 
 export default function Home() {
   const FORM_ENDPOINT = "https://formspree.io/f/xldowwje";
@@ -44,21 +43,15 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50 relative">
       {/* ✅ Toast Notification */}
-      <AnimatePresence>
-        {toast.show && (
-          <motion.div
-            initial={{ y: -50, opacity: 0 }}
-            animate={{ y: 20, opacity: 1 }}
-            exit={{ y: -50, opacity: 0 }}
-            transition={{ duration: 0.4 }}
-            className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-lg shadow-lg text-white ${
-              toast.type === "success" ? "bg-green-600" : "bg-red-600"
-            }`}
-          >
-            {toast.message}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {toast.show && (
+        <div
+          className={`fixed top-6 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-lg shadow-lg text-white transition-all duration-500 ${
+            toast.type === "success" ? "bg-green-600" : "bg-red-600"
+          } ${toast.show ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}
+        >
+          {toast.message}
+        </div>
+      )}
 
       {/* HEADER */}
       <header className="max-w-6xl mx-auto px-6 py-8 flex items-center justify-between">
