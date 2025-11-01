@@ -6,7 +6,7 @@ export default function Home() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
 
-  // Hide messages automatically after 5 seconds
+  // Auto-hide success/error messages after 5 seconds
   useEffect(() => {
     if (submitted || error) {
       const timer = setTimeout(() => {
@@ -17,19 +17,24 @@ export default function Home() {
     }
   }, [submitted, error]);
 
-  // ✅ Fixed Form Submit Handler
+  // ✅ Fixed + Verified Form Submit Handler
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const formData = new FormData(form);
+    const data = {
+      name: form.name.value,
+      email: form.email.value,
+      message: form.message.value,
+    };
 
     try {
       const response = await fetch(FORM_ENDPOINT, {
         method: "POST",
-        body: formData, // ✅ send as multipart/form-data
         headers: {
+          "Content-Type": "application/json",
           Accept: "application/json",
         },
+        body: JSON.stringify(data),
       });
 
       if (response.ok) {
@@ -125,42 +130,15 @@ export default function Home() {
           </p>
 
           <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <ServiceCard
-              title="GST Registrations"
-              desc="End-to-end GST registration services for businesses of all sizes."
-            />
-            <ServiceCard
-              title="Return Filings"
-              desc="Timely and accurate GST/Statutory return filings to keep you compliant."
-            />
-            <ServiceCard
-              title="Income Tax Filings"
-              desc="Individual and corporate income tax filing and optimisation services."
-            />
-            <ServiceCard
-              title="Virtual CFO Services"
-              desc="Strategic financial leadership, forecasting and performance reporting."
-            />
-            <ServiceCard
-              title="Accounting & Bookkeeping"
-              desc="Accurate bookkeeping and accounting to give you clean, reliable records."
-            />
-            <ServiceCard
-              title="Payroll Compliances"
-              desc="Payroll processing and compliance with statutory requirements."
-            />
-            <ServiceCard
-              title="TDS/TCS Compliances"
-              desc="Complete handling of TDS/TCS calculations, filings and reconciliations."
-            />
-            <ServiceCard
-              title="Internal Audit Services"
-              desc="Independent internal audits to strengthen controls and processes."
-            />
-            <ServiceCard
-              title="Costing"
-              desc="Product and service costing to support pricing and margin decisions."
-            />
+            <ServiceCard title="GST Registrations" desc="End-to-end GST registration services for businesses of all sizes." />
+            <ServiceCard title="Return Filings" desc="Timely and accurate GST/Statutory return filings to keep you compliant." />
+            <ServiceCard title="Income Tax Filings" desc="Individual and corporate income tax filing and optimisation services." />
+            <ServiceCard title="Virtual CFO Services" desc="Strategic financial leadership, forecasting and performance reporting." />
+            <ServiceCard title="Accounting & Bookkeeping" desc="Accurate bookkeeping and accounting to give you clean, reliable records." />
+            <ServiceCard title="Payroll Compliances" desc="Payroll processing and compliance with statutory requirements." />
+            <ServiceCard title="TDS/TCS Compliances" desc="Complete handling of TDS/TCS calculations, filings and reconciliations." />
+            <ServiceCard title="Internal Audit Services" desc="Independent internal audits to strengthen controls and processes." />
+            <ServiceCard title="Costing" desc="Product and service costing to support pricing and margin decisions." />
           </div>
         </section>
 
@@ -203,10 +181,7 @@ export default function Home() {
 
           <div className="mt-6 grid md:grid-cols-2 gap-8">
             {/* FORM */}
-            <form
-              onSubmit={handleSubmit}
-              className="bg-white p-6 rounded-lg shadow"
-            >
+            <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow">
               {submitted ? (
                 <div className="text-center text-green-600 font-medium">
                   ✅ Message sent successfully! We’ll get back soon.
@@ -217,6 +192,9 @@ export default function Home() {
                 </div>
               ) : (
                 <>
+                  <input type="hidden" name="_subject" value="New Contact Submission from Macroc.in" />
+                  <input type="hidden" name="_gotcha" style={{ display: "none" }} />
+
                   <label className="block text-sm font-medium text-slate-700">
                     Your name
                   </label>
