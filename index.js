@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
-  const FORM_ENDPOINT = "https://formspree.io/f/xldowwje"; // ✅ Verified Formspree endpoint
+  const FORM_ENDPOINT = "/api/contact"; // ✅ Verified Formspree endpoint
 
   return (
     <div className="min-h-screen">
