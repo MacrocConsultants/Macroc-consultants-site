@@ -1,23 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
   const FORM_ENDPOINT = "https://formspree.io/f/xldowwje";
   const EMAIL = "info@macroc.in";
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState(false);
+  const [toast, setToast] = useState({ show: false, type: "", message: "" });
 
-  // Auto-hide success/error messages after 5 seconds
-  useEffect(() => {
-    if (submitted || error) {
-      const timer = setTimeout(() => {
-        setSubmitted(false);
-        setError(false);
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [submitted, error]);
+  const showToast = (type, message) => {
+    setToast({ show: true, type, message });
+    setTimeout(() => setToast({ show: false, type: "", message: "" }), 4000);
+  };
 
-  // ✅ Fixed + Verified Form Submit Handler
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -38,18 +31,35 @@ export default function Home() {
       });
 
       if (response.ok) {
-        setSubmitted(true);
+        showToast("success", "✅ Message sent successfully!");
         form.reset();
       } else {
-        setError(true);
+        showToast("error", "⚠️ Error submitting form. Try again.");
       }
-    } catch (err) {
-      setError(true);
+    } catch {
+      showToast("error", "⚠️ Network issue. Please retry.");
     }
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50 relative">
+      {/* ✅ Toast Notification */}
+      <AnimatePresence>
+        {toast.show && (
+          <motion.div
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 20, opacity: 1 }}
+            exit={{ y: -50, opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-lg shadow-lg text-white ${
+              toast.type === "success" ? "bg-green-600" : "bg-red-600"
+            }`}
+          >
+            {toast.message}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* HEADER */}
       <header className="max-w-6xl mx-auto px-6 py-8 flex items-center justify-between">
         <div className="flex items-center gap-4">
@@ -64,9 +74,9 @@ export default function Home() {
           </div>
         </div>
         <nav className="hidden md:flex gap-6 text-sm text-slate-700">
-          <a href="#services">Services</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
+          <a href="#services" className="hover:text-macrocGreen">Services</a>
+          <a href="#about" className="hover:text-macrocGreen">About</a>
+          <a href="#contact" className="hover:text-macrocGreen">Contact</a>
         </nav>
       </header>
 
@@ -90,23 +100,16 @@ export default function Home() {
             <div className="mt-8 flex gap-4">
               <a
                 href="#contact"
-                className="inline-block px-6 py-3 bg-macrocGreen text-white rounded-lg shadow hover:shadow-lg"
+                className="inline-block px-6 py-3 bg-macrocGreen text-white rounded-lg shadow hover:shadow-lg transition"
               >
                 Get a Consultation
               </a>
               <a
                 href="#services"
-                className="inline-block px-6 py-3 border border-slate-200 rounded-lg text-slate-700"
+                className="inline-block px-6 py-3 border border-slate-200 rounded-lg text-slate-700 hover:border-macrocGreen transition"
               >
                 Our Services
               </a>
-            </div>
-
-            <div className="mt-8 flex items-center gap-6 text-sm text-slate-600">
-              <div>
-                <div className="font-semibold">Trusted for</div>
-                <div>GST · Income Tax · Virtual CFO</div>
-              </div>
             </div>
           </div>
 
@@ -182,61 +185,49 @@ export default function Home() {
           <div className="mt-6 grid md:grid-cols-2 gap-8">
             {/* FORM */}
             <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow">
-              {submitted ? (
-                <div className="text-center text-green-600 font-medium">
-                  ✅ Message sent successfully! We’ll get back soon.
-                </div>
-              ) : error ? (
-                <div className="text-center text-red-600 font-medium">
-                  ⚠️ There was an error submitting the form. Try again.
-                </div>
-              ) : (
-                <>
-                  <input type="hidden" name="_subject" value="New Contact Submission from Macroc.in" />
-                  <input type="hidden" name="_gotcha" style={{ display: "none" }} />
+              <input type="hidden" name="_subject" value="New Contact Submission from Macroc.in" />
+              <input type="hidden" name="_gotcha" style={{ display: "none" }} />
 
-                  <label className="block text-sm font-medium text-slate-700">
-                    Your name
-                  </label>
-                  <input
-                    name="name"
-                    required
-                    className="mt-1 w-full border border-slate-200 rounded px-3 py-2"
-                    placeholder="Full name"
-                  />
+              <label className="block text-sm font-medium text-slate-700">
+                Your name
+              </label>
+              <input
+                name="name"
+                required
+                className="mt-1 w-full border border-slate-200 rounded px-3 py-2"
+                placeholder="Full name"
+              />
 
-                  <label className="block text-sm font-medium text-slate-700 mt-4">
-                    Email
-                  </label>
-                  <input
-                    name="email"
-                    required
-                    type="email"
-                    className="mt-1 w-full border border-slate-200 rounded px-3 py-2"
-                    placeholder="you@example.com"
-                  />
+              <label className="block text-sm font-medium text-slate-700 mt-4">
+                Email
+              </label>
+              <input
+                name="email"
+                required
+                type="email"
+                className="mt-1 w-full border border-slate-200 rounded px-3 py-2"
+                placeholder="you@example.com"
+              />
 
-                  <label className="block text-sm font-medium text-slate-700 mt-4">
-                    Message
-                  </label>
-                  <textarea
-                    name="message"
-                    required
-                    className="mt-1 w-full border border-slate-200 rounded px-3 py-2"
-                    rows={4}
-                    placeholder="How can we help?"
-                  />
+              <label className="block text-sm font-medium text-slate-700 mt-4">
+                Message
+              </label>
+              <textarea
+                name="message"
+                required
+                className="mt-1 w-full border border-slate-200 rounded px-3 py-2"
+                rows={4}
+                placeholder="How can we help?"
+              />
 
-                  <div className="mt-4">
-                    <button
-                      type="submit"
-                      className="px-5 py-2 bg-macrocGold text-white rounded hover:bg-yellow-600 transition"
-                    >
-                      Send message
-                    </button>
-                  </div>
-                </>
-              )}
+              <div className="mt-4">
+                <button
+                  type="submit"
+                  className="px-5 py-2 bg-macrocGold text-white rounded hover:bg-yellow-600 transition"
+                >
+                  Send message
+                </button>
+              </div>
             </form>
 
             {/* CONTACT INFO */}
@@ -281,10 +272,9 @@ export default function Home() {
   );
 }
 
-// ✅ Reusable Service Card
 function ServiceCard({ title, desc }) {
   return (
-    <div className="p-5 bg-white rounded-lg shadow-sm border">
+    <div className="p-5 bg-white rounded-lg shadow-sm border hover:shadow-md transition">
       <h4 className="font-semibold">{title}</h4>
       <p className="mt-2 text-slate-600 text-sm">{desc}</p>
     </div>
