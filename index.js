@@ -147,7 +147,7 @@ export default function Home() {
   );
 }
 
-/* ✅ Contact Form Component (Formspree Integrated + Modal) */
+/* ✅ Contact Form Component (Formspree JSON API + Modal) */
 function ContactForm({ endpoint }) {
   const [status, setStatus] = useState("idle");
   const [showModal, setShowModal] = useState(false);
@@ -157,16 +157,25 @@ function ContactForm({ endpoint }) {
     e.preventDefault();
     setStatus("loading");
 
+    const form = e.target;
+    const data = {
+      name: form.name.value,
+      email: form.email.value,
+      message: form.message.value,
+    };
+
     try {
-      const formData = new FormData(e.target);
       const response = await fetch(endpoint, {
         method: "POST",
-        body: formData,
-        headers: { Accept: "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(data),
       });
 
       if (response.ok) {
-        e.target.reset();
+        form.reset();
         setModalType("success");
         setShowModal(true);
         setStatus("success");
@@ -184,8 +193,6 @@ function ContactForm({ endpoint }) {
     <>
       <form
         onSubmit={handleSubmit}
-        action={endpoint}
-        method="POST"
         className="bg-white p-6 rounded-lg shadow"
       >
         <label className="block text-sm font-medium text-slate-700">Your Name</label>
