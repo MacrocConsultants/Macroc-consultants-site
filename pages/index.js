@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Home() {
-  const FORM_ENDPOINT = "https://formspree.io/f/your-form-id"; // <-- replace with your Formspree form ID
+  const FORM_ENDPOINT = "https://formspree.io/f/xldowwje"; // <-- replace with your Formspree form ID
   const EMAIL = "info@macroc.in";
 
   return (
@@ -104,7 +104,7 @@ export default function Home() {
           <p className="mt-2 text-slate-600">Ready to start? Send us a message and we’ll get back within 1 business day.</p>
 
           <div className="mt-6 grid md:grid-cols-2 gap-8">
-            <form className="bg-white p-6 rounded-lg shadow" method="POST" action={FORM_ENDPOINT}>
+            <form className="bg-white p-6 rounded-lg shadow" method="POST" action={FORM_ENDPOINT="https://formspree.io/f/xldowwje";}>
               <label className="block text-sm font-medium text-slate-700">Your name</label>
               <input name="name" required className="mt-1 w-full border border-slate-200 rounded px-3 py-2" placeholder="Full name" />
 
@@ -118,7 +118,7 @@ export default function Home() {
                 <button type="submit" className="px-5 py-2 bg-macrocGold text-white rounded">Send message</button>
               </div>
 
-              <p className="mt-3 text-xs text-slate-500">This form will send messages to your Formspree endpoint. Replace <code>your-form-id</code> with your actual Formspree form ID.</p>
+              <p className="mt-3 text-xs text-slate-500">This form will send messages to your Formspree endpoint. Replace <code>m</code> with your actual Formspree form ID.</p>
             </form>
 
             <div className="p-6 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-slate-100">
