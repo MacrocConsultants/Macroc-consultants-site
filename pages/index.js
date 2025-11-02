@@ -19,7 +19,7 @@ export default function Home() {
           <div>
             <h1 className="text-xl font-semibold">Macroc Consultants</h1>
             <p className="text-sm text-gray-300">
-              Expert financial strategy & advisory
+              Expert financial advisory & Compliance
             </p>
           </div>
         </div>
@@ -41,7 +41,7 @@ export default function Home() {
         <section
           className="relative flex flex-col md:flex-row items-center gap-12 px-6 py-24 bg-cover bg-center bg-fixed"
           style={{
-            backgroundImage: "url('/images/team-accounting-bg.jpg')", // ✅ Correct path from public/images
+            backgroundImage: "url('/images/team-accounting-bg.png')", // ✅ Correct path from public/images
           }}
         >
           {/* Overlay */}
@@ -59,11 +59,11 @@ export default function Home() {
             </p>
             <h2 className="mt-4 text-4xl md:text-5xl font-extrabold leading-tight text-white">
               Expertise forged with{" "}
-              <span className="text-macrocGreen">fierce</span> precision
+              <span className="text-macrocGreen">fierce</span> Precision
             </h2>
             <p className="mt-6 text-lg text-gray-300 max-w-lg">
-              At Macroc Consultants, we blend rigorous analysis with smart
-              strategy to help individuals and businesses grow, protect, and
+              At Macroc Consultants, we blend our Expertise with our Confidence, Intent 
+                 to help individuals and businesses grow, protect, and
               optimize their wealth.
             </p>
 
@@ -85,7 +85,7 @@ export default function Home() {
             <div className="mt-10 text-sm text-gray-400">
               <div className="font-medium">Trusted for:</div>
               <div className="mt-1 text-gray-300">
-                GST · Income Tax · Virtual CFO
+                GST · Income Tax · Virtual CFO · Payroll · Compliances · ROC Services 
               </div>
             </div>
           </motion.div>
@@ -99,7 +99,7 @@ export default function Home() {
           >
             <div className="rounded-2xl overflow-hidden shadow-lg">
               <img
-                src="/images/team-accounting-bg.jpg" // ✅ Updated image path
+                src="/images/team-accounting-bg.png" // ✅ Updated image path
                 alt="Macroc Consultants Team"
                 className="w-full h-full object-cover"
                 onError={(e) => {
@@ -124,7 +124,7 @@ export default function Home() {
               { title: "GST Registrations", desc: "End-to-end GST registration services for businesses of all sizes." },
               { title: "Return Filings", desc: "Timely and accurate GST/Statutory return filings to keep you compliant." },
               { title: "Income Tax Filings", desc: "Individual and corporate income tax filing and optimisation services." },
-              { title: "Virtual CFO Services", desc: "Strategic financial leadership, forecasting and performance reporting." },
+              { title: "Virtual CFO Services", desc: "Strategic financial Accounting,forecasting and performance reporting." },
               { title: "Accounting & Bookkeeping", desc: "Accurate bookkeeping and accounting to give you clean, reliable records." },
               { title: "Payroll Compliances", desc: "Payroll processing and compliance with statutory requirements." },
               { title: "TDS/TCS Compliances", desc: "Complete handling of TDS/TCS calculations, filings and reconciliations." },
@@ -157,8 +157,10 @@ export default function Home() {
               </p>
               <ul className="mt-6 space-y-2 text-gray-300">
                 <li>• Personalized financial planning</li>
-                <li>• Transparent fee structures</li>
+                <li>• Accurate Accounting & Book keeping</li>
                 <li>• Proven results across sectors</li>
+                <li>• Dynamic Team</li> 
+                <li>• Transparent fee structures</li>
               </ul>
             </div>
             <motion.div
@@ -179,7 +181,7 @@ export default function Home() {
         <section id="contact" className="max-w-6xl mx-auto px-6 py-16">
           <h3 className="text-3xl font-semibold text-macrocGold">Contact Us</h3>
           <p className="mt-2 text-gray-300">
-            Ready to start? Send us a personalized message and we’ll respond
+            Ready to upscale your business ? Send us a personalized message and we’ll respond
             within 1 business day.
           </p>
 
@@ -259,6 +261,7 @@ export default function Home() {
                   <li>• Tailored strategies</li>
                   <li>• Data-backed decisions</li>
                   <li>• Transparent fees</li>
+                   <li>• Young & Dynamic Team</li>
                 </ul>
               </div>
             </div>
