@@ -1,9 +1,34 @@
-# *
+# ===============================
+# robots.txt for Macroc Consultants
+# Updated: November 2025
+# Purpose: Allow full indexing of public pages and block system/build files
+# ===============================
+
+# Global rule for all crawlers
 User-agent: *
 Allow: /
 
-# Host
+# Disallow internal or build-related paths (for Next.js / React apps)
+Disallow: /_next/
+Disallow: /api/
+Disallow: /static/
+Disallow: /assets/
+Disallow: /server-sitemap.xml
+
+# Prevent crawling of temporary files
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /*.txt$
+
+# Host (recognized by Yandex and some other search engines)
 Host: https://macroc.in
 
-# Sitemaps
+# Sitemap (important for all search engines)
 Sitemap: https://macroc.in/sitemap.xml
+
+# ===============================
+# Notes:
+# - Google and Bing will use the sitemap for fast discovery of pages
+# - Allow rules ensure your homepage and services are indexed fully
+# - Disallow rules protect non-public build paths from showing in search
+# ===============================
