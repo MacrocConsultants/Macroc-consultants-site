@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://macroc.in
+
+# Sitemaps
+Sitemap: https://macroc.in/sitemap.xml
