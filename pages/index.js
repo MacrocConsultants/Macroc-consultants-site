@@ -10,7 +10,7 @@ export default function Home() {
     <>
       {/* ✅ STEP 1: SEO META TAGS */}
       <Head>
-        <title>Macroc Consultancy | Financial & Tax Advisory Experts</title>
+        <title>Macroc Consultants | Financial & Tax Advisory Experts</title>
         <meta
           name="description"
           content="Macroc Consultants offers expert financial advisory, accounting, taxation, GST, and compliance services for businesses and individuals across India."
@@ -75,7 +75,7 @@ export default function Home() {
               <span className="text-white font-bold text-lg">MC</span>
             </motion.div>
             <div>
-              <h1 className="text-xl font-semibold">Macroc Consultancy</h1>
+              <h1 className="text-xl font-semibold">Macroc Consultants</h1>
               <p className="text-sm text-gray-300">
                 Expert financial advisory & Compliance
               </p>
@@ -120,7 +120,7 @@ export default function Home() {
               <p className="mt-6 text-lg text-gray-300 max-w-lg">
                 At Macroc Consultants, we blend our Expertise with our
                 Confidence, Intent to help individuals and businesses grow,
-                protect, and optimize their wealth.
+                protect, and optimize their wealth through virtual Presence.
               </p>
 
               <div className="mt-8 flex gap-4">
@@ -155,7 +155,7 @@ export default function Home() {
               <div className="rounded-2xl overflow-hidden shadow-lg">
                 <img
                   src="/images/team-accounting-bg.jpg"
-                  alt="Macroc Consultants Team"
+                  alt="Virtual Experts"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -205,10 +205,11 @@ export default function Home() {
                 <p className="mt-4 text-gray-300 leading-relaxed">
                   We combine industry expertise, robust analytics, and a
                   client-first approach to deliver financial strategies that are
-                  practical, compliant, and growth-focused.
+                  practical, compliant, and growth-focused virtually through internet .
                 </p>
                 <ul className="mt-6 space-y-2 text-gray-300">
-                  <li>• Personalized financial planning</li>
+                  <li>• Virtual Presence but invincible </li>
+                    <li>• Personalized financial planning</li>
                   <li>• Accurate Accounting & Book keeping</li>
                   <li>• Proven results across sectors</li>
                   <li>• Dynamic Team</li>
@@ -233,7 +234,7 @@ export default function Home() {
           <section id="contact" className="max-w-6xl mx-auto px-6 py-16">
             <h3 className="text-3xl font-semibold text-macrocGold">Contact Us</h3>
             <p className="mt-2 text-gray-300">
-              Ready to upscale your business? Send us a personalized message and we’ll respond within 1 business day.
+              Ready to upscale your business ? Send us a personalized message and we’ll respond within 1 business day.
             </p>
 
             <div className="mt-10 grid md:grid-cols-2 gap-8">
@@ -300,12 +301,13 @@ export default function Home() {
                 </p>
                 <p className="mt-2 text-gray-300">Phone: 6300447014, 9035437253</p>
                 <p className="mt-2 text-gray-300">
-                  Address: Sri Pathi Rao Street, Oldpet, Palamaner, 517408
+                  Address: Global Wide ( Vitual ) Sri Pathi Rao Street, Oldpet, Palamaner, 517408 (Locally)
                 </p>
 
                 <div className="mt-6">
                   <h5 className="font-medium text-macrocGold">Why choose us</h5>
                   <ul className="mt-3 text-gray-300 text-sm space-y-1">
+                    <li>• Invincible Virtual Presence</li>
                     <li>• Tailored strategies</li>
                     <li>• Data-backed decisions</li>
                     <li>• Transparent fees</li>
