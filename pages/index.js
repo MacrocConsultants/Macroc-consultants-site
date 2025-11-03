@@ -75,7 +75,7 @@ export default function Home() {
              <img
   src="/macro-logo.png"
   alt="MACROC Financial Consultants"
-  className="w-18 h-18 object-contain"
+  className="w-22 h-22 object-contain"
 />
 
 
