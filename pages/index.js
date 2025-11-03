@@ -72,11 +72,12 @@ export default function Home() {
               whileHover={{ scale: 1.1 }}
               className="w-12 h-12 rounded-xl bg-macrocGreen flex items-center justify-center shadow-lg shadow-macrocGreen/30"
             >
-              <img
-  src="url('/public/macroc-logo.png')"
+             <img
+  src="/macroc-logo.png"
   alt="MACROC Financial Consultants"
-  className="w-12 h-12 object-contain"
+  className="w-14 h-14 object-contain"
 />
+
 
             </motion.div>
             <div>
