@@ -70,7 +70,7 @@ export default function Home() {
           <div className="flex items-center gap-4">
             <motion.div
               whileHover={{ scale: 1.1 }}
-              className="w-16 h-16 rounded-xl bg-macrocpurple flex items-center justify-center shadow-lg shadow-macrocpurple/30"
+              className="w-18h-18 rounded-xl bg-macrocpurple flex items-center justify-center shadow-lg shadow-macrocpurple/30"
             >
              <img
   src="/macro-logo.png"
