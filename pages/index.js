@@ -10,7 +10,7 @@ export default function Home() {
     <>
       {/* ✅ STEP 1: SEO META TAGS */}
       <Head>
-        <title>Macroc Consultants | Financial & Tax Advisory Experts</title>
+        <title>Macroc Consultancy | Financial & Tax Advisory Experts</title>
         <meta
           name="description"
           content="Macroc Consultants offers expert financial advisory, accounting, taxation, GST, and compliance services for businesses and individuals across India."
@@ -75,7 +75,7 @@ export default function Home() {
               <span className="text-white font-bold text-lg">MC</span>
             </motion.div>
             <div>
-              <h1 className="text-xl font-semibold">Macroc Consultants</h1>
+              <h1 className="text-xl font-semibold">Macroc Consultancy</h1>
               <p className="text-sm text-gray-300">
                 Expert financial advisory & Compliance
               </p>
@@ -154,7 +154,7 @@ export default function Home() {
             >
               <div className="rounded-2xl overflow-hidden shadow-lg">
                 <img
-                  src="/images/team-accounting-bg.png"
+                  src="/images/team-accounting-bg.jpg"
                   alt="Macroc Consultants Team"
                   className="w-full h-full object-cover"
                 />
