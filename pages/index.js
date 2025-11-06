@@ -17,7 +17,7 @@ export default function Home() {
         />
         <meta
           name="keywords"
-          content="Macroc Consultants, Macroc Advisory, Macroc Financial Services, Macroc Finances, Macroc Taxation, Chartered Accountant, Accounting, GST, TDS, Audit, CFO, Compliance"
+          content=" CA Near me,best consultant,best CA,TDS Consultant,tds,tcs,gst registration,gst services,Macroc Consultants, Macroc Advisory, Macroc Financial Services, Macroc Finances, Macroc Taxation, Chartered Accountant, Accounting, GST, TDS, Audit, CFO, Compliance"
         />
         <meta name="author" content="Macroc Consultants" />
         <meta name="robots" content="index, follow" />
@@ -179,12 +179,12 @@ export default function Home() {
 
             <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
-                { title: "GST Registrations", desc: "End-to-end GST registration services for businesses of all sizes." },
-                { title: "Return Filings", desc: "Timely and accurate GST/Statutory return filings to keep you compliant." },
+                { title: " Registrations & Certifications ", desc: "End-to-end registration and certification services for businesses of all sizes." },
+                { title: "Return Filings", desc: "Timely and accurate GST & Statutory return filings to keep you compliant." },
                 { title: "Income Tax Filings", desc: "Individual and corporate income tax filing and optimisation services." },
                 { title: "Virtual CFO Services", desc: "Strategic financial accounting, forecasting, and performance reporting." },
                 { title: "Accounting & Bookkeeping", desc: "Accurate bookkeeping and accounting to give you clean, reliable records." },
-                { title: "Payroll Compliances", desc: "Payroll processing and compliance with statutory requirements." },
+                { title: "Payroll Compliances", desc: "Payroll processing and compliance with statutory requirements Oof PF,ESI,PT." },
                 { title: "TDS/TCS Compliances", desc: "Complete handling of TDS/TCS calculations, filings, and reconciliations." },
                 { title: "Internal Audit Services", desc: "Independent internal audits to strengthen controls and processes." },
                 { title: "Costing", desc: "Product and service costing to support pricing and margin decisions." },
@@ -307,7 +307,7 @@ export default function Home() {
                 </p>
                 <p className="mt-2 text-gray-300">Phone: 6300447014, 9035437253</p>
                 <p className="mt-2 text-gray-300">
-                  Address: Global Wide ( Vitual ) Sri Pathi Rao Street, Oldpet, Palamaner, 517408 (Locally)
+                  Address: World wide ( Vitual )  Oldpet,Palamaner,517408 (Office)
                 </p>
 
                 <div className="mt-6">
