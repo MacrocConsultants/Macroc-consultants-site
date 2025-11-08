@@ -307,7 +307,7 @@ export default function Home() {
                 </p>
                 <p className="mt-2 text-gray-300">Phone: 6300447014, 9035437253</p>
                 <p className="mt-2 text-gray-300">
-                  Address: World wide ( Vitual )  Oldpet,Palamaner,517408 (Office)
+                  Address: 5-50 Oldpet,Palamaner,517408, AP, In
                 </p>
 
                 <div className="mt-6">
