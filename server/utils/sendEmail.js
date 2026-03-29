@@ -1,4 +1,5 @@
-﻿const nodemailer = require("nodemailer");
+﻿const dns = require("dns");
+const nodemailer = require("nodemailer");
 
 const host = process.env.EMAIL_HOST || "smtp.zoho.in";
 const port = Number(process.env.EMAIL_PORT || 587);
@@ -18,6 +19,8 @@ const transporter = nodemailer.createTransport({
     user,
     pass,
   },
+  // Force IPv4 so SMTP does not fail on unreachable IPv6 routes in hosting environments.
+  lookup: (hostname, options, callback) => dns.lookup(hostname, { family: 4 }, callback),
   tls: {
     rejectUnauthorized: false,
   },
@@ -41,7 +44,11 @@ module.exports = async (to, otp, subject = "MACROC TEAM - OTP Verification") => 
     throw new Error("Email service not configured. Missing EMAIL_USER or EMAIL_PASS.");
   }
 
-  await verifyTransporter();
+  try {
+    await verifyTransporter();
+  } catch (error) {
+    throw new Error(`SMTP verify failed (${host}:${port}, secure=${secure}): ${error.message}`);
+  }
 
   const mailOptions = {
     from: `"MACROC TEAM" <${user}>`,
@@ -58,6 +65,12 @@ module.exports = async (to, otp, subject = "MACROC TEAM - OTP Verification") => 
     `,
   };
 
-  const info = await transporter.sendMail(mailOptions);
+  let info;
+  try {
+    info = await transporter.sendMail(mailOptions);
+  } catch (error) {
+    throw new Error(`SMTP send failed (${host}:${port}, secure=${secure}): ${error.message}`);
+  }
+
   return info;
 };
