@@ -100,7 +100,7 @@ export default function Register() {
     setLoading(true);
 
     try {
-      await api.post("/auth/register", {
+      await api.post("/api/auth/register", {
         ...form,
         services: selectedServices,
       });
