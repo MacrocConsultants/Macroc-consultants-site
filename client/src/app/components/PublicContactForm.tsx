@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 
@@ -21,7 +21,9 @@ type PublicContactFormProps = {
   defaultService: string;
 };
 
-const apiBaseUrl = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, "");
+const rawApiUrl = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, "");
+const apiBase = rawApiUrl ? (/\/api$/i.test(rawApiUrl) ? rawApiUrl : `${rawApiUrl}/api`) : "";
+const contactEndpoint = apiBase ? `${apiBase}/contact` : "";
 
 export default function PublicContactForm({
   formAction,
@@ -55,9 +57,9 @@ export default function PublicContactForm({
     try {
       const requests: Promise<Response>[] = [];
 
-      if (apiBaseUrl) {
+      if (contactEndpoint) {
         requests.push(
-          fetch(`${apiBaseUrl}/contact`, {
+          fetch(contactEndpoint, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload),

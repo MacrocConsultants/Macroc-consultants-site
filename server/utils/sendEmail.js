@@ -1,63 +1,60 @@
-const nodemailer = require("nodemailer");
+﻿const nodemailer = require("nodemailer");
 
-// 🔥 ZOHO SMTP CONFIG (Production Ready)
+const host = process.env.EMAIL_HOST || "smtp.zoho.in";
+const port = Number(process.env.EMAIL_PORT || 587);
+const secure = port === 465;
+const user = process.env.EMAIL_USER;
+const pass = process.env.EMAIL_PASS;
+
+if (!user || !pass) {
+  console.error("EMAIL CONFIG ERROR: EMAIL_USER or EMAIL_PASS is missing.");
+}
+
 const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST || "smtp.zoho.in", // ✅ fallback safe
-  port: process.env.EMAIL_PORT || 587,
-  secure: false, // false for 587
+  host,
+  port,
+  secure,
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+    user,
+    pass,
   },
   tls: {
-    rejectUnauthorized: false, // 🔥 helps avoid SSL issues in some envs
+    rejectUnauthorized: false,
   },
 });
 
-// 🔍 VERIFY CONNECTION (runs once on startup)
-transporter.verify((error, success) => {
-  if (error) {
-    console.error("❌ EMAIL CONFIG ERROR:", error.message);
-  } else {
-    console.log("✅ Email server is ready to send messages");
+let verifyPromise;
+
+const verifyTransporter = async () => {
+  if (!verifyPromise) {
+    verifyPromise = transporter.verify();
   }
-});
 
-module.exports = async (to, otp) => {
-  try {
-    console.log("📧 Sending OTP to:", to);
-    console.log("📨 Using EMAIL_USER:", process.env.EMAIL_USER);
+  return verifyPromise;
+};
 
-    const mailOptions = {
-      from: `"MACROC-TEAM" <${process.env.EMAIL_USER}>`,
-      to,
-      subject: "MACROC-TEAM - OTP Verification",
-      html: `
-        <div style="font-family: Arial; padding: 20px;">
-          <h2>🔐 OTP Verification</h2>
-          <p>Your OTP is:</p>
-          <h1 style="color:#2563eb; letter-spacing:2px;">${otp}</h1>
-          <p>This OTP is valid for 5 minutes.</p>
-          <br/>
-          <small>If you didn't request this, ignore this email.</small>
-        </div>
-      `,
-    };
-
-    const info = await transporter.sendMail(mailOptions);
-
-    console.log("✅ Email sent:", info.messageId);
-
-  } catch (error) {
-    console.error("❌ EMAIL SEND FAILED:", error.message);
-
-    // 🔥 EXTRA DEBUG (VERY IMPORTANT)
-    console.error("EMAIL USER:", process.env.EMAIL_USER);
-    console.error("EMAIL HOST:", process.env.EMAIL_HOST || "smtp.zoho.in");
-
-    // 🔥 FALLBACK (DO NOT BREAK FLOW)
-    console.log("⚠️ FALLBACK → OTP (for testing):", otp);
-
-    throw error; // keep this
+module.exports = async (to, otp, subject = "MACROC TEAM - OTP Verification") => {
+  if (!user || !pass) {
+    throw new Error("Email service not configured. Missing EMAIL_USER or EMAIL_PASS.");
   }
+
+  await verifyTransporter();
+
+  const mailOptions = {
+    from: `"MACROC TEAM" <${user}>`,
+    to,
+    subject,
+    html: `
+      <div style="font-family: Arial, sans-serif; padding: 20px; color: #0f172a;">
+        <h2 style="margin: 0 0 12px;">OTP Verification</h2>
+        <p style="margin: 0 0 8px;">Your OTP is:</p>
+        <h1 style="color:#2563eb; letter-spacing:2px; margin: 0 0 12px;">${otp}</h1>
+        <p style="margin: 0 0 4px;">This OTP is valid for 5 minutes.</p>
+        <small>If you did not request this, you can ignore this email.</small>
+      </div>
+    `,
+  };
+
+  const info = await transporter.sendMail(mailOptions);
+  return info;
 };

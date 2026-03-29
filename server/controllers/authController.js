@@ -1,9 +1,9 @@
-const User = require("../models/User");
+﻿const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const generateOtp = require("../utils/generateOtp");
 const sendEmail = require("../utils/sendEmail");
 
-// 🔐 Generate JWT
+// Generate JWT
 const generateToken = (id) => {
   return jwt.sign(
     { id },
@@ -11,7 +11,6 @@ const generateToken = (id) => {
     { expiresIn: "30d" }
   );
 };
-
 
 // ================= LOGIN =================
 exports.login = async (req, res) => {
@@ -24,15 +23,10 @@ exports.login = async (req, res) => {
 
     const user = await User.findOne({ email });
 
-    console.log("🔍 LOGIN USER:", user?.email);
-    console.log("ROLE:", user?.role);
-    console.log("isVerified:", user?.isVerified);
-
     if (!user) {
       return res.status(401).json({ message: "User not found" });
     }
 
-    // 🔥 FIXED: handle string/boolean mismatch
     if (user.role === "client" && user.isVerified !== true) {
       return res.status(403).json({
         message: "Please verify your email before logging in",
@@ -53,13 +47,11 @@ exports.login = async (req, res) => {
       partnerSpacebyteFolderLink: user.partnerSpacebyteFolderLink || "",
       token: generateToken(user._id),
     });
-
   } catch (error) {
-    console.error("❌ LOGIN ERROR:", error);
+    console.error("LOGIN ERROR:", error);
     return res.status(500).json({ message: "Server error during login" });
   }
 };
-
 
 // ================= REGISTER =================
 exports.register = async (req, res) => {
@@ -76,8 +68,6 @@ exports.register = async (req, res) => {
   } = req.body;
 
   try {
-    console.log("🔵 REGISTER HIT:", email);
-
     if (!name || !email || !password || !mobileNumber || !state || !city) {
       return res.status(400).json({
         message: "Name, email, mobile number, state, city, and password are required",
@@ -96,8 +86,6 @@ exports.register = async (req, res) => {
     let user = await User.findOne({ email });
 
     if (user) {
-      console.log("🟡 Existing user");
-
       user.otp = String(otp);
       user.otpExpiry = otpExpiry;
       user.isVerified = false;
@@ -110,10 +98,7 @@ exports.register = async (req, res) => {
       if (services) user.services = services;
 
       await user.save();
-
     } else {
-      console.log("🟢 New user");
-
       user = await User.create({
         name,
         email,
@@ -131,26 +116,24 @@ exports.register = async (req, res) => {
       });
     }
 
-    console.log("🟢 OTP:", otp);
-
     try {
-      await sendEmail(email, otp);
-      console.log("✅ EMAIL SENT");
-    } catch (err) {
-      console.error("❌ EMAIL ERROR:", err.message);
+      await sendEmail(email, otp, "MACROC TEAM - Registration OTP");
+    } catch (emailError) {
+      console.error("REGISTER EMAIL ERROR:", emailError.message);
+      return res.status(503).json({
+        message: "OTP could not be sent. Please check email server settings and try again.",
+      });
     }
 
     res.status(200).json({
       message: "OTP sent successfully",
       email,
     });
-
   } catch (error) {
-    console.error("❌ REGISTER ERROR:", error);
+    console.error("REGISTER ERROR:", error);
     res.status(500).json({ message: "Registration failed" });
   }
 };
-
 
 // ================= VERIFY OTP =================
 exports.verifyOtp = async (req, res) => {
@@ -180,21 +163,17 @@ exports.verifyOtp = async (req, res) => {
     await user.save();
 
     res.json({ message: "Account verified successfully" });
-
   } catch (error) {
-    console.error("❌ VERIFY OTP ERROR:", error);
+    console.error("VERIFY OTP ERROR:", error);
     res.status(500).json({ message: "Verification failed" });
   }
 };
-
 
 // ================= FORGOT PASSWORD =================
 exports.forgotPassword = async (req, res) => {
   const { email } = req.body;
 
   try {
-    console.log("🔵 FORGOT PASSWORD:", email);
-
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -208,26 +187,24 @@ exports.forgotPassword = async (req, res) => {
 
     await user.save();
 
-    console.log("🟢 RESET OTP:", otp);
-
     try {
-      await sendEmail(email, otp);
-      console.log("✅ RESET EMAIL SENT");
-    } catch (err) {
-      console.error("❌ EMAIL ERROR:", err.message);
+      await sendEmail(email, otp, "MACROC TEAM - Password Reset OTP");
+    } catch (emailError) {
+      console.error("FORGOT PASSWORD EMAIL ERROR:", emailError.message);
+      return res.status(503).json({
+        message: "OTP could not be sent. Please check email server settings and try again.",
+      });
     }
 
     return res.status(200).json({
       message: "OTP sent successfully",
       email,
     });
-
   } catch (error) {
-    console.error("❌ FORGOT ERROR:", error);
+    console.error("FORGOT ERROR:", error);
     return res.status(500).json({ message: "Server error" });
   }
 };
-
 
 // ================= VERIFY RESET OTP =================
 exports.verifyResetOtp = async (req, res) => {
@@ -235,11 +212,6 @@ exports.verifyResetOtp = async (req, res) => {
 
   try {
     const user = await User.findOne({ email });
-
-    console.log("DB OTP:", user?.resetOtp);
-    console.log("ENTERED OTP:", otp);
-    console.log("EXPIRY:", user?.resetOtpExpiry);
-    console.log("NOW:", Date.now());
 
     if (
       !user ||
@@ -251,7 +223,6 @@ exports.verifyResetOtp = async (req, res) => {
     }
 
     return res.json({ message: "OTP verified" });
-
   } catch (error) {
     console.error("VERIFY RESET OTP ERROR:", error);
     return res.status(500).json({ message: "Server error" });
@@ -281,9 +252,8 @@ exports.resetPassword = async (req, res) => {
     await user.save();
 
     res.json({ message: "Password reset successful" });
-
   } catch (error) {
-    console.error("❌ RESET PASSWORD ERROR:", error);
+    console.error("RESET PASSWORD ERROR:", error);
     res.status(500).json({ message: "Error resetting password" });
   }
 };

@@ -1,18 +1,17 @@
-import { cache } from "react";
-import { HomepageContent, mergeContent } from "./homepageContent";
+﻿import { HomepageContent, mergeContent } from "./homepageContent";
 
-const contentEndpoint = process.env.NEXT_PUBLIC_API_URL
-  ? `${process.env.NEXT_PUBLIC_API_URL.replace(/\/$/, "")}/content/hero_section`
-  : "";
+const rawApiUrl = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, "");
+const apiBase = rawApiUrl ? (/\/api$/i.test(rawApiUrl) ? rawApiUrl : `${rawApiUrl}/api`) : "";
+const contentEndpoint = apiBase ? `${apiBase}/content/hero_section` : "";
 
-export const getHomepageContent = cache(async (): Promise<HomepageContent> => {
+export async function getHomepageContent(): Promise<HomepageContent> {
   if (!contentEndpoint) {
     return mergeContent(null);
   }
 
   try {
     const response = await fetch(contentEndpoint, {
-      next: { revalidate: 60 },
+      cache: "no-store",
     });
 
     if (!response.ok) {
@@ -24,4 +23,4 @@ export const getHomepageContent = cache(async (): Promise<HomepageContent> => {
   } catch {
     return mergeContent(null);
   }
-});
+}
