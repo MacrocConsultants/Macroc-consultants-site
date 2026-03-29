@@ -1,4 +1,4 @@
-services:
+﻿services:
   - type: web
     name: macroc-team-api
     runtime: node
@@ -24,6 +24,12 @@ services:
       - key: EMAIL_USER
         sync: false
       - key: EMAIL_PASS
+        sync: false
+      - key: EMAIL_PROVIDER
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: RESEND_FROM_EMAIL
         sync: false
       - key: SPACEBYTE_BASE_URL
         sync: false
