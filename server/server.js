@@ -19,7 +19,7 @@ const corsOptions = {
   origin:
     process.env.NODE_ENV === "production"
       ? process.env.FRONTEND_URL
-      : "http://www.macroc.in",
+      : "https://www.macroc.in",
   optionsSuccessStatus: 200,
 };
 
