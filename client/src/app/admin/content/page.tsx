@@ -13,6 +13,9 @@ type ContentForm = {
     heroBackgroundImage: { fileId: string; fileName: string; url: string };
     heroSideImage: { fileId: string; fileName: string; url: string };
   };
+  typography: {
+    fontStyle: "professional" | "modern" | "classic";
+  };
   seo: {
     title: string;
     description: string;
@@ -106,6 +109,9 @@ const defaultForm: ContentForm = {
     headerLogoImage: { fileId: "", fileName: "", url: "" },
     heroBackgroundImage: { fileId: "", fileName: "", url: "" },
     heroSideImage: { fileId: "", fileName: "", url: "" },
+  },
+  typography: {
+    fontStyle: "professional",
   },
   seo: {
     title: "Macroc Consultants | Financial & Tax Advisory Experts",
@@ -373,6 +379,7 @@ function mergeContent(data: Partial<ContentForm> | null | undefined): ContentFor
     ...defaultForm,
     ...data,
     assets: { ...defaultForm.assets, ...(data?.assets || {}) },
+    typography: { ...defaultForm.typography, ...(data?.typography || {}) },
     seo: { ...defaultForm.seo, ...(data?.seo || {}) },
     header: { ...defaultForm.header, ...(data?.header || {}) },
     hero: { ...defaultForm.hero, ...(data?.hero || {}) },
@@ -492,6 +499,15 @@ export default function AdminContent() {
   const [formData, setFormData] = useState<ContentForm>(defaultForm);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
+  const [saveToast, setSaveToast] = useState<{
+    visible: boolean;
+    tone: "success" | "error";
+    text: string;
+  }>({
+    visible: false,
+    tone: "success",
+    text: "",
+  });
 
   useEffect(() => {
     api
@@ -538,8 +554,25 @@ export default function AdminContent() {
       const res = await api.post("/content/hero_section", payload);
       setFormData(mergeContent(res.data));
       setMessage("Homepage content saved successfully.");
+      setSaveToast({
+        visible: true,
+        tone: "success",
+        text: "Content updated successfully.",
+      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setTimeout(() => {
+        setSaveToast((current) => ({ ...current, visible: false }));
+      }, 2600);
     } catch {
       setMessage("Could not save homepage content.");
+      setSaveToast({
+        visible: true,
+        tone: "error",
+        text: "Could not update content. Please try again.",
+      });
+      setTimeout(() => {
+        setSaveToast((current) => ({ ...current, visible: false }));
+      }, 3000);
     }
   };
 
@@ -578,6 +611,18 @@ export default function AdminContent() {
 
   return (
     <div className="max-w-6xl space-y-6">
+      {saveToast.visible && (
+        <div
+          className={`fixed left-1/2 top-5 z-50 w-[92%] max-w-md -translate-x-1/2 rounded-xl border px-4 py-3 text-sm font-semibold shadow-xl ${
+            saveToast.tone === "success"
+              ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+              : "border-red-200 bg-red-50 text-red-700"
+          }`}
+        >
+          {saveToast.text}
+        </div>
+      )}
+
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-slate-800">Content Management</h1>
@@ -609,6 +654,25 @@ export default function AdminContent() {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <Section title="SEO">
+          <Field label="Website Font Style">
+            <select
+              className={inputClassName}
+              value={formData.typography.fontStyle}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  typography: {
+                    ...formData.typography,
+                    fontStyle: e.target.value as "professional" | "modern" | "classic",
+                  },
+                })
+              }
+            >
+              <option value="professional">Professional (Recommended)</option>
+              <option value="modern">Modern</option>
+              <option value="classic">Classic</option>
+            </select>
+          </Field>
           <Field label="Page Title">
             <input className={inputClassName} value={formData.seo.title} onChange={(e) => setFormData({ ...formData, seo: { ...formData.seo, title: e.target.value } })} />
           </Field>

@@ -1,10 +1,10 @@
-"use client";
+﻿"use client";
 
+import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import TopNavbar from "../components/TopNavbar";
 import ProtectedRoute from "../components/ProtectedRoute";
 
-// 🔥 Scalable menu (we’ll later make this dynamic from DB)
 const clientLinks = [
   { name: "My Portal", href: "/client" },
   { name: "My Documents", href: "/client#documents" },
@@ -16,29 +16,27 @@ export default function ClientLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <ProtectedRoute allowedRoles={["client"]}>
-      
-      {/* MAIN CONTAINER */}
-      <div className="flex h-screen bg-slate-100 text-slate-800 font-sans">
-        
-        {/* SIDEBAR */}
-        <Sidebar role="client" links={clientLinks} />
+      <div className="dashboard-interactive flex h-screen bg-slate-100 font-sans text-slate-800">
+        <Sidebar
+          role="client"
+          links={clientLinks}
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
 
-        {/* RIGHT SECTION */}
-        <div className="flex-1 flex flex-col min-h-screen">
-          
-          {/* TOP NAVBAR */}
-          <TopNavbar />
+        <div className="flex min-h-screen min-w-0 flex-1 flex-col">
+          <TopNavbar onMenuClick={() => setSidebarOpen(true)} />
 
-          {/* CONTENT AREA */}
-          <main className="flex-1 overflow-y-auto p-6 md:p-10 bg-slate-100">
+          <main className="flex-1 overflow-y-auto bg-slate-100 p-4 sm:p-6 lg:p-10">
             {children}
           </main>
-
         </div>
       </div>
-
     </ProtectedRoute>
   );
 }
+

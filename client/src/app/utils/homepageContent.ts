@@ -2,6 +2,9 @@ export type NavLink = { label: string; href: string };
 export type ServiceItem = { title: string; desc: string };
 
 export type HomepageContent = {
+  typography: {
+    fontStyle: "professional" | "modern" | "classic";
+  };
   seo: {
     title: string;
     description: string;
@@ -90,6 +93,9 @@ export type HomepageContent = {
 };
 
 export const defaultContent: HomepageContent = {
+  typography: {
+    fontStyle: "professional",
+  },
   seo: {
     title: "Macroc Consultants | Financial & Tax Advisory Experts",
     description:
@@ -355,6 +361,7 @@ export function mergeContent(data: Partial<HomepageContent> | null | undefined):
   return {
     ...defaultContent,
     ...data,
+    typography: { ...defaultContent.typography, ...(data?.typography || {}) },
     seo: { ...defaultContent.seo, ...(data?.seo || {}) },
     header: { ...defaultContent.header, ...(data?.header || {}) },
     hero: { ...defaultContent.hero, ...(data?.hero || {}) },

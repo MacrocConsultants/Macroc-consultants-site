@@ -53,9 +53,8 @@ exports.login = async (req, res) => {
   }
 };
 
-const getEmailFailureMessage = (emailError) => {
-  const detail = emailError?.message || "Unknown SMTP error";
-  return `OTP could not be sent. Email server error: ${detail}`;
+const getEmailFailureMessage = () => {
+  return "OTP could not be sent right now. Please try again in a few minutes.";
 };
 
 // ================= REGISTER =================
@@ -258,3 +257,4 @@ exports.resetPassword = async (req, res) => {
     res.status(500).json({ message: "Error resetting password" });
   }
 };
+

@@ -7,6 +7,9 @@ const defaultHomepageContent = () => ({
     heroBackgroundImage: { fileId: "", fileName: "", url: "" },
     heroSideImage: { fileId: "", fileName: "", url: "" },
   },
+  typography: {
+    fontStyle: "professional",
+  },
   seo: {
     title: "Macroc Consultants | Financial & Tax Advisory Experts",
     description:
@@ -285,6 +288,7 @@ const mergeWithDefaults = (savedData = {}) => {
       ...defaults.assets,
       ...(savedData.assets || {}),
     },
+    typography: { ...defaults.typography, ...(savedData.typography || {}) },
     seo: { ...defaults.seo, ...(savedData.seo || {}) },
     header: { ...defaults.header, ...(savedData.header || {}) },
     hero: { ...defaults.hero, ...(savedData.hero || {}) },

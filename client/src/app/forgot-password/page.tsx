@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import api from "../../utils/api";
@@ -16,7 +16,6 @@ export default function ForgotPassword() {
   const [success, setSuccess] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  // 🔥 STEP 1 → SEND OTP
   const handleSendOtp = async () => {
     if (!email) {
       return setError("Please enter email");
@@ -27,24 +26,16 @@ export default function ForgotPassword() {
     setSuccess("");
 
     try {
-      console.log("📡 Sending forgot password request...");
-
-      const res = await api.post("/api/auth/forgot-password", { email });
-
-      console.log("✅ RESPONSE:", res.data);
-
+      await api.post("/api/auth/forgot-password", { email });
       setSuccess("OTP sent successfully");
       setStep(2);
-
     } catch (err: any) {
-      console.error("❌ ERROR:", err.response?.data || err.message);
       setError(err.response?.data?.message || "Failed to send OTP");
     } finally {
       setLoading(false);
     }
   };
 
-  // 🔥 STEP 2 → VERIFY OTP
   const handleVerifyOtp = async () => {
     if (!otp) {
       return setError("Enter OTP");
@@ -56,10 +47,8 @@ export default function ForgotPassword() {
 
     try {
       await api.post("/auth/verify-reset-otp", { email, otp });
-
       setSuccess("OTP verified");
       setStep(3);
-
     } catch (err: any) {
       setError(err.response?.data?.message || "Invalid OTP");
     } finally {
@@ -67,7 +56,6 @@ export default function ForgotPassword() {
     }
   };
 
-  // 🔥 STEP 3 → RESET PASSWORD
   const handleResetPassword = async () => {
     if (!newPassword) {
       return setError("Enter new password");
@@ -84,7 +72,7 @@ export default function ForgotPassword() {
         newPassword,
       });
 
-      setSuccess("Password reset successful ✅");
+      setSuccess("Password reset successful");
 
       setTimeout(() => {
         setStep(1);
@@ -93,7 +81,6 @@ export default function ForgotPassword() {
         setNewPassword("");
         setSuccess("");
       }, 2000);
-
     } catch (err: any) {
       setError(err.response?.data?.message || "Reset failed");
     } finally {
@@ -103,34 +90,20 @@ export default function ForgotPassword() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 px-4">
-
       <div className="bg-white/95 p-8 rounded-2xl shadow-xl w-full max-w-md">
+        <h2 className="text-2xl font-bold text-center mb-4">Forgot Password</h2>
 
-        <h2 className="text-2xl font-bold text-center mb-4">
-          Forgot Password
-        </h2>
-
-        {/* ERROR */}
         {error && (
-          <div className="mb-4 text-red-600 text-sm text-center bg-red-50 p-2 rounded">
-            {error}
-          </div>
+          <div className="mb-4 text-red-600 text-sm text-center bg-red-50 p-2 rounded">{error}</div>
         )}
 
-        {/* SUCCESS */}
         {success && (
-          <div className="mb-4 text-green-600 text-sm text-center bg-green-50 p-2 rounded">
-            {success}
-          </div>
+          <div className="mb-4 text-green-600 text-sm text-center bg-green-50 p-2 rounded">{success}</div>
         )}
 
-        {/* STEP 1 */}
         {step === 1 && (
           <div className="space-y-4">
-
-            <p className="text-sm text-gray-500 text-center">
-              Enter your email to receive OTP
-            </p>
+            <p className="text-sm text-gray-500 text-center">Enter your email to receive OTP</p>
 
             <input
               type="email"
@@ -150,10 +123,8 @@ export default function ForgotPassword() {
           </div>
         )}
 
-        {/* STEP 2 */}
         {step === 2 && (
           <div className="space-y-4">
-
             <p className="text-sm text-gray-500 text-center">
               OTP sent to <b>{email}</b>
             </p>
@@ -173,7 +144,6 @@ export default function ForgotPassword() {
               {loading ? <Loader2 className="animate-spin" size={18} /> : "Verify OTP"}
             </button>
 
-            {/* 🔥 RESEND */}
             <p
               onClick={handleSendOtp}
               className="text-sm text-blue-600 text-center cursor-pointer hover:underline"
@@ -183,13 +153,9 @@ export default function ForgotPassword() {
           </div>
         )}
 
-        {/* STEP 3 */}
         {step === 3 && (
           <div className="space-y-4">
-
-            <p className="text-sm text-gray-500 text-center">
-              Enter your new password
-            </p>
+            <p className="text-sm text-gray-500 text-center">Enter your new password</p>
 
             <div className="relative">
               <input
@@ -218,7 +184,6 @@ export default function ForgotPassword() {
             </button>
           </div>
         )}
-
       </div>
     </div>
   );

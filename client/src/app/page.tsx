@@ -6,6 +6,10 @@ import PublicWhatsAppButton from "./components/PublicWhatsAppButton";
 import { getHomepageContent } from "./utils/getHomepageContent";
 import { slugifyServiceTitle } from "./utils/homepageContent";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
+
 function renderHeroTitle(title: string, highlight: string) {
   if (!highlight || !title.toLowerCase().includes(highlight.toLowerCase())) {
     return title;
@@ -66,6 +70,7 @@ type HomePageProps = {
 
 export default async function Home({ searchParams }: HomePageProps) {
   const content = await getHomepageContent();
+  const selectedFontStyle = content.typography?.fontStyle || "professional";
   const currentYear = new Date().getFullYear();
   const contactServiceOptions = buildContactServiceOptions(
     content.contact.serviceOptions,
@@ -77,7 +82,7 @@ export default async function Home({ searchParams }: HomePageProps) {
     : contactServiceOptions[0] || "";
 
   return (
-    <div className="min-h-screen w-full bg-slate-950 text-white">
+    <div className={`public-site public-font-${selectedFontStyle} page-enter min-h-screen w-full bg-slate-950 text-white`}>
       <header className="relative z-20 flex w-full items-center justify-between px-4 py-8 md:px-8">
         <div className="flex items-center gap-4">
           <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-xl bg-black shadow-lg shadow-black/40">
@@ -98,6 +103,33 @@ export default async function Home({ searchParams }: HomePageProps) {
             </p>
           </div>
         </div>
+
+        <details className="group relative md:hidden">
+          <summary className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-lg border border-slate-700 bg-slate-900/80 text-2xl text-white transition hover:border-emerald-400">
+            <span aria-hidden>⋮</span>
+            <span className="sr-only">Open menu</span>
+          </summary>
+
+          <div className="absolute right-0 top-14 z-30 w-52 origin-top rounded-xl border border-slate-700 bg-slate-900/95 p-3 shadow-xl transition duration-200 ease-out [transform:scaleY(0.96)] [opacity:0] group-open:[transform:scaleY(1)] group-open:[opacity:1]">
+            <nav className="flex flex-col gap-1 text-sm text-slate-100">
+              {content.header.navLinks.map((link, index) => (
+                <a
+                  key={`mobile-${link.label}-${index}`}
+                  href={link.href}
+                  className="rounded-lg px-3 py-2 transition hover:bg-white/10"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <Link
+                href="/login"
+                className="mt-2 rounded-lg border border-emerald-400 px-3 py-2 text-center font-medium text-white transition hover:bg-emerald-500/20"
+              >
+                {content.header.loginButtonText}
+              </Link>
+            </nav>
+          </div>
+        </details>
 
         <div className="hidden items-center gap-8 md:flex">
           <nav className="flex gap-8 text-sm text-gray-200">
@@ -138,13 +170,13 @@ export default async function Home({ searchParams }: HomePageProps) {
               <div className="mt-8 flex gap-4">
                 <a
                   href={content.hero.primaryButtonHref}
-                  className="rounded-lg bg-emerald-500 px-6 py-3 text-white shadow-md transition hover:scale-105 hover:shadow-xl"
+                  className="pro-interactive rounded-lg bg-emerald-500 px-6 py-3 text-white shadow-md transition hover:scale-105 hover:shadow-xl"
                 >
                   {content.hero.primaryButtonText}
                 </a>
                 <a
                   href={content.hero.secondaryButtonHref}
-                  className="rounded-lg border border-gray-400 px-6 py-3 text-gray-200 transition hover:border-amber-300 hover:bg-white/10"
+                  className="pro-interactive rounded-lg border border-gray-400 px-6 py-3 text-gray-200 transition hover:border-amber-300 hover:bg-white/10"
                 >
                   {content.hero.secondaryButtonText}
                 </a>
@@ -153,13 +185,13 @@ export default async function Home({ searchParams }: HomePageProps) {
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <Link
                   href="/login"
-                  className="rounded-lg border border-amber-300 bg-white/10 px-6 py-3 text-center text-sm font-semibold text-white transition hover:bg-white/15"
+                  className="pro-interactive rounded-lg border border-amber-300 bg-white/10 px-6 py-3 text-center text-sm font-semibold text-white transition hover:bg-white/15"
                 >
                   Are you an existing client? Please login
                 </Link>
                 <Link
                   href="/register"
-                  className="rounded-lg border border-slate-400 px-6 py-3 text-center text-sm font-semibold text-slate-100 transition hover:border-emerald-400 hover:bg-white/10"
+                  className="pro-interactive rounded-lg border border-slate-400 px-6 py-3 text-center text-sm font-semibold text-slate-100 transition hover:border-emerald-400 hover:bg-white/10"
                 >
                   New client ? Register
                 </Link>
@@ -188,7 +220,7 @@ export default async function Home({ searchParams }: HomePageProps) {
               <Link
                 key={`${item.title}-${index}`}
                 href={`/services/${slugifyServiceTitle(item.title)}`}
-                className="block rounded-xl border border-slate-700 bg-slate-900/70 p-6 shadow-md transition hover:border-emerald-400 hover:shadow-emerald-400/20"
+                className="pro-interactive block rounded-xl border border-slate-700 bg-slate-900/70 p-6 shadow-md transition hover:border-emerald-400 hover:shadow-emerald-400/20"
               >
                 <h4 className="font-semibold text-amber-300">{item.title}</h4>
               </Link>

@@ -36,9 +36,9 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 px-4">
+    <div className="page-enter min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 px-4">
 
-      <div className="bg-white/95 backdrop-blur-md p-8 rounded-2xl shadow-2xl max-w-md w-full border border-slate-200">
+      <div className="bg-white/95 backdrop-blur-md p-8 rounded-2xl shadow-2xl max-w-md w-full border border-slate-200 transition duration-300 hover:shadow-[0_20px_45px_rgba(15,23,42,0.28)]">
 
         {/* HEADER */}
         <div className="text-center mb-6">
@@ -111,7 +111,7 @@ export default function Login() {
           {/* LOGIN BUTTON */}
           <button
             disabled={loading}
-            className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition flex items-center justify-center gap-2 disabled:opacity-60"
+            className="pro-interactive w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition flex items-center justify-center gap-2 disabled:opacity-60"
           >
             {loading ? (
               <>
