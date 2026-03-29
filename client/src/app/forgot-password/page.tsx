@@ -29,7 +29,7 @@ export default function ForgotPassword() {
     try {
       console.log("📡 Sending forgot password request...");
 
-      const res = await api.post("/auth/forgot-password", { email });
+      const res = await api.post("/api/auth/forgot-password", { email });
 
       console.log("✅ RESPONSE:", res.data);
 
