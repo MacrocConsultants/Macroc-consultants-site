@@ -53,6 +53,11 @@ exports.login = async (req, res) => {
   }
 };
 
+const getEmailFailureMessage = (emailError) => {
+  const detail = emailError?.message || "Unknown SMTP error";
+  return `OTP could not be sent. Email server error: ${detail}`;
+};
+
 // ================= REGISTER =================
 exports.register = async (req, res) => {
   const {
@@ -120,9 +125,7 @@ exports.register = async (req, res) => {
       await sendEmail(email, otp, "MACROC TEAM - Registration OTP");
     } catch (emailError) {
       console.error("REGISTER EMAIL ERROR:", emailError.message);
-      return res.status(503).json({
-        message: "OTP could not be sent. Please check email server settings and try again.",
-      });
+      return res.status(503).json({ message: getEmailFailureMessage(emailError) });
     }
 
     res.status(200).json({
@@ -191,9 +194,7 @@ exports.forgotPassword = async (req, res) => {
       await sendEmail(email, otp, "MACROC TEAM - Password Reset OTP");
     } catch (emailError) {
       console.error("FORGOT PASSWORD EMAIL ERROR:", emailError.message);
-      return res.status(503).json({
-        message: "OTP could not be sent. Please check email server settings and try again.",
-      });
+      return res.status(503).json({ message: getEmailFailureMessage(emailError) });
     }
 
     return res.status(200).json({

@@ -27,7 +27,10 @@ let verifyPromise;
 
 const verifyTransporter = async () => {
   if (!verifyPromise) {
-    verifyPromise = transporter.verify();
+    verifyPromise = transporter.verify().catch((error) => {
+      verifyPromise = undefined;
+      throw error;
+    });
   }
 
   return verifyPromise;
