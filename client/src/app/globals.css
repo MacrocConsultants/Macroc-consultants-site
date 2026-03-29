@@ -68,6 +68,57 @@ button {
   animation: page-enter 420ms ease-out both;
 }
 
+@keyframes float-drift {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes icon-vibrate {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(-10deg);
+  }
+  40% {
+    transform: rotate(8deg);
+  }
+  60% {
+    transform: rotate(-6deg);
+  }
+  80% {
+    transform: rotate(4deg);
+  }
+}
+
+@keyframes icon-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+}
+
+.floating-action {
+  animation: float-drift 3.2s ease-in-out infinite;
+}
+
+.floating-action-whatsapp .icon-shell {
+  animation: icon-breathe 1.5s ease-in-out infinite;
+}
+
+.floating-action-call .icon-shell {
+  animation: icon-vibrate 1.1s linear infinite;
+}
+
 .pro-interactive {
   transition: transform 180ms ease, box-shadow 220ms ease, background-color 220ms ease,
     border-color 220ms ease, color 220ms ease;
@@ -164,6 +215,12 @@ button {
 
   .page-enter,
   #contact:target {
+    animation: none;
+  }
+
+  .floating-action,
+  .floating-action-whatsapp .icon-shell,
+  .floating-action-call .icon-shell {
     animation: none;
   }
 
