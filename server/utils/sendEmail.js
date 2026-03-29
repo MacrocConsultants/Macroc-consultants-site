@@ -3,8 +3,8 @@ const nodemailer = require("nodemailer");
 // 🔥 ZOHO SMTP CONFIG (Production Ready)
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST || "smtp.zoho.in", // ✅ fallback safe
-  port: process.env.EMAIL_PORT || 465,
-  secure: true, // true for 465
+  port: process.env.EMAIL_PORT || 587,
+  secure: false, // false for 587
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
