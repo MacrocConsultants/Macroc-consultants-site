@@ -1,4 +1,4 @@
-require("dotenv").config();
+﻿require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -15,11 +15,41 @@ const { errorHandler } = require("./middleware/errorHandler");
 const app = express();
 
 // ================= CORS =================
+const normalizeOrigin = (value = "") => value.replace(/\/$/, "").toLowerCase();
+
+const envOrigins = [
+  process.env.FRONTEND_URL,
+  ...(process.env.FRONTEND_URLS || "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean),
+]
+  .filter(Boolean)
+  .map(normalizeOrigin);
+
+const defaultAllowedOrigins = [
+  "https://macroc.in",
+  "https://www.macroc.in",
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
+].map(normalizeOrigin);
+
+const allowedOrigins = Array.from(new Set([...defaultAllowedOrigins, ...envOrigins]));
+
 const corsOptions = {
-  origin:
-    process.env.NODE_ENV === "production"
-      ? process.env.FRONTEND_URL
-      : "https://www.macroc.in",
+  origin(origin, callback) {
+    // Allow non-browser requests (curl/postman/server-to-server)
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    const normalizedOrigin = normalizeOrigin(origin);
+    if (allowedOrigins.includes(normalizedOrigin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error(`CORS blocked for origin: ${origin}`));
+  },
   optionsSuccessStatus: 200,
 };
 
