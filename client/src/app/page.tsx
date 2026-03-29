@@ -82,7 +82,8 @@ export default async function Home({ searchParams }: HomePageProps) {
     : contactServiceOptions[0] || "";
 
   return (
-    <div className={`public-site public-font-${selectedFontStyle} page-enter min-h-screen w-full bg-slate-950 text-white`}>
+    <div className={`public-site public-font-${selectedFontStyle} min-h-screen w-full bg-slate-950 text-white`}>
+      <div className="page-enter">
       <header className="relative z-20 flex w-full items-center justify-between px-4 py-8 md:px-8">
         <div className="flex items-center gap-4">
           <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-xl bg-black shadow-lg shadow-black/40">
@@ -288,6 +289,7 @@ export default async function Home({ searchParams }: HomePageProps) {
         <div>{content.footer.copyright.replace("2024", String(currentYear))}</div>
         <div className="mt-1">{content.footer.note}</div>
       </footer>
+      </div>
 
       <PublicWhatsAppButton
         enabled={content.whatsapp.enabled}

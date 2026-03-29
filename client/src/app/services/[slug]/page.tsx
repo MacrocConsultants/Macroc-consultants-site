@@ -45,7 +45,7 @@ export default async function ServiceDetailsPage({ params }: ServicePageProps) {
   if (!service) {
     return (
       <div className={`public-site public-font-${selectedFontStyle} min-h-screen w-full bg-slate-950 px-4 py-20 text-white md:px-8`}>
-        <div className="w-full rounded-3xl border border-slate-800 bg-slate-900/80 p-10 text-center">
+        <div className="page-enter w-full rounded-3xl border border-slate-800 bg-slate-900/80 p-10 text-center">
           <p className="text-sm uppercase tracking-[0.25em] text-amber-300">Service</p>
           <h1 className="mt-4 text-3xl font-semibold">Service not found</h1>
           <p className="mt-4 text-slate-300">
@@ -75,8 +75,8 @@ export default async function ServiceDetailsPage({ params }: ServicePageProps) {
   }
 
   return (
-    <div className={`public-site public-font-${selectedFontStyle} page-enter min-h-screen w-full bg-slate-950 px-4 py-16 text-white md:px-8`}>
-      <div className="w-full">
+    <div className={`public-site public-font-${selectedFontStyle} min-h-screen w-full bg-slate-950 px-4 py-16 text-white md:px-8`}>
+      <div className="page-enter w-full">
         <Link
           href="/#services"
           className="inline-flex rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-300 transition hover:border-amber-300 hover:text-white"
