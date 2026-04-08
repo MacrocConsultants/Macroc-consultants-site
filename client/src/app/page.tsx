@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import PublicCallButton from "./components/PublicCallButton";
 import PublicContactForm from "./components/PublicContactForm";
@@ -89,13 +88,10 @@ export default async function Home({ searchParams }: HomePageProps) {
           <div className="flex items-center gap-4">
             <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-xl bg-black shadow-lg shadow-black/40">
               {content.header.logoImage ? (
-                <Image
+                <img
                   src={content.header.logoImage}
                   alt="MACROC Financial Consultants"
-                  width={64}
-                  height={64}
                   className="h-full w-full object-contain"
-                  priority
                 />
               ) : (
                 <span className="text-xl font-bold text-white">{content.header.logoText}</span>
@@ -210,13 +206,10 @@ export default async function Home({ searchParams }: HomePageProps) {
 
               <ScrollReveal variant="right" delay={140} className="relative z-10">
                 <div className="relative min-h-[280px] overflow-hidden rounded-2xl shadow-lg md:min-h-[420px]">
-                  <Image
+                  <img
                     src={content.hero.sideImage}
                     alt={content.hero.sideImageAlt}
-                    fill
-                    className="h-full w-full object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    priority
+                    className="absolute inset-0 h-full w-full object-cover"
                   />
                 </div>
               </ScrollReveal>
