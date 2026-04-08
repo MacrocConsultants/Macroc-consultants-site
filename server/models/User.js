@@ -9,6 +9,13 @@ const UserSchema = new mongoose.Schema(
 
     mobileNumber: { type: String, trim: true },
 
+    gstin: {
+      type: String,
+      trim: true,
+      uppercase: true,
+      match: /^[0-9A-Z]{15}$/,
+    },
+
     state: { type: String, trim: true },
 
     city: { type: String, trim: true },

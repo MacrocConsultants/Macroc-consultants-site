@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Toaster } from "react-hot-toast";
 import { Merriweather, Source_Sans_3 } from "next/font/google";
+import CookieConsent from "./components/CookieConsent";
 
 const headingFont = Merriweather({
   subsets: ["latin"],
@@ -18,6 +19,11 @@ const bodyFont = Source_Sans_3({
 export const metadata: Metadata = {
   title: "BOD System",
   description: "Business Operating Dashboard",
+  icons: {
+    icon: "/macro-logo.png",
+    shortcut: "/macro-logo.png",
+    apple: "/macro-logo.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -26,6 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${headingFont.variable} ${bodyFont.variable} bg-slate-50 text-slate-900 antialiased`}>
         <Toaster position="top-right" />
         {children}
+        <CookieConsent />
       </body>
     </html>
   );

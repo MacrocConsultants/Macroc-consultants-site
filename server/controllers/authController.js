@@ -1,7 +1,34 @@
-﻿const User = require("../models/User");
+const User = require("../models/User");
+const Client = require("../models/Client");
 const jwt = require("jsonwebtoken");
 const generateOtp = require("../utils/generateOtp");
 const sendEmail = require("../utils/sendEmail");
+
+const gstinPattern = /^[0-9A-Z]{15}$/;
+
+const ensureClientProfile = async (user) => {
+  if (!user || user.role !== "client") {
+    return null;
+  }
+
+  let clientProfile = await Client.findOne({ clientId: user._id });
+
+  if (!clientProfile) {
+    return Client.create({
+      name: user.name,
+      companyName: user.businessName?.trim() || user.name,
+      clientId: user._id,
+      services: Array.isArray(user.services) ? user.services : [],
+      status: "pending",
+    });
+  }
+
+  clientProfile.name = user.name;
+  clientProfile.companyName = user.businessName?.trim() || clientProfile.companyName || user.name;
+  clientProfile.services = Array.isArray(user.services) ? user.services : clientProfile.services;
+  await clientProfile.save();
+  return clientProfile;
+};
 
 // Generate JWT
 const generateToken = (id) => {
@@ -64,6 +91,7 @@ exports.register = async (req, res) => {
     email,
     password,
     mobileNumber,
+    gstin,
     state,
     city,
     otherCategory,
@@ -75,6 +103,12 @@ exports.register = async (req, res) => {
     if (!name || !email || !password || !mobileNumber || !state || !city) {
       return res.status(400).json({
         message: "Name, email, mobile number, state, city, and password are required",
+      });
+    }
+
+    if (gstin && !gstinPattern.test(String(gstin).trim().toUpperCase())) {
+      return res.status(400).json({
+        message: "GSTIN must be a valid 15-character value",
       });
     }
 
@@ -94,6 +128,7 @@ exports.register = async (req, res) => {
       user.otpExpiry = otpExpiry;
       user.isVerified = false;
       user.mobileNumber = mobileNumber;
+      user.gstin = gstin ? String(gstin).trim().toUpperCase() : "";
       user.state = state;
       user.city = city;
       user.otherCategory = otherCategory;
@@ -107,6 +142,7 @@ exports.register = async (req, res) => {
         name,
         email,
         mobileNumber,
+        gstin: gstin ? String(gstin).trim().toUpperCase() : "",
         state,
         city,
         otherCategory,
@@ -163,6 +199,7 @@ exports.verifyOtp = async (req, res) => {
     user.otpExpiry = null;
 
     await user.save();
+    await ensureClientProfile(user);
 
     res.json({ message: "Account verified successfully" });
   } catch (error) {
@@ -257,4 +294,3 @@ exports.resetPassword = async (req, res) => {
     res.status(500).json({ message: "Error resetting password" });
   }
 };
-
