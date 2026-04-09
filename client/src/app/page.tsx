@@ -205,14 +205,10 @@ export default async function Home({ searchParams }: HomePageProps) {
             </div>
 
             <div className="relative z-10">
-    <div className="overflow-hidden rounded-2xl shadow-lg">
-      <img
-        src={content.hero.sideImage}
-        alt={content.hero.sideImageAlt}
-        className="h-full w-full object-cover"
-      />
-    </div>
-  </div>
+              <div className="overflow-hidden rounded-2xl shadow-lg">
+                <img src={content.hero.sideImage} alt={content.hero.sideImageAlt} className="h-full w-full object-cover" />
+              </div>
+            </div>
           </div>
         </section>
 
