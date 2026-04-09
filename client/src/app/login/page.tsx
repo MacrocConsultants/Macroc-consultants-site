@@ -1,49 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import api from "../../utils/api";
-import { Eye, EyeOff, Loader2, RefreshCw } from "lucide-react";
-
-const captchaCharacters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-
-function createCaptcha() {
-  return Array.from({ length: 6 }, () => {
-    const index = Math.floor(Math.random() * captchaCharacters.length);
-    return captchaCharacters[index];
-  }).join("");
-}
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 
 export default function Login() {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [captcha, setCaptcha] = useState("");
-  const [captchaInput, setCaptchaInput] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  useEffect(() => {
-    setCaptcha(createCaptcha());
-  }, []);
-
-  const refreshCaptcha = () => {
-    setCaptcha(createCaptcha());
-    setCaptchaInput("");
-  };
-
   const handleLogin = async (e: any) => {
     e.preventDefault();
     setError("");
-
-    if (captchaInput.trim().toUpperCase() !== captcha) {
-      setError("Captcha does not match. Please try again.");
-      refreshCaptcha();
-      return;
-    }
-
     setLoading(true);
 
     try {
@@ -133,47 +106,6 @@ export default function Login() {
                 Forgot Password?
               </span>
             </div>
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between">
-              <label className="text-sm text-slate-600">Captcha</label>
-              <button
-                type="button"
-                onClick={refreshCaptcha}
-                className="flex items-center gap-1 text-xs font-medium text-blue-600 transition hover:text-blue-700"
-              >
-                <RefreshCw size={14} />
-                Refresh
-              </button>
-            </div>
-
-            <div className="mt-2 rounded-xl border border-slate-300 bg-[linear-gradient(135deg,#eff6ff_0%,#dbeafe_45%,#f8fafc_100%)] px-4 py-3 shadow-inner">
-              <div className="flex items-center justify-between gap-2">
-                {captcha.split("").map((char, index) => (
-                  <span
-                    key={`${char}-${index}`}
-                    className="select-none text-xl font-bold tracking-[0.22em] text-slate-800"
-                    style={{
-                      transform: `rotate(${index % 2 === 0 ? -10 : 8}deg) translateY(${index % 3 === 0 ? "-1px" : "1px"})`,
-                      textShadow: "1px 1px 0 rgba(37, 99, 235, 0.18)",
-                    }}
-                  >
-                    {char}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <input
-              type="text"
-              required
-              value={captchaInput}
-              maxLength={6}
-              placeholder="Enter the 6-character captcha"
-              className="w-full border border-slate-300 p-3 rounded-lg mt-3 uppercase tracking-[0.18em] focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onChange={(e) => setCaptchaInput(e.target.value.toUpperCase())}
-            />
           </div>
 
           {/* LOGIN BUTTON */}

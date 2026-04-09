@@ -12,7 +12,6 @@ export default function Register() {
     name: "",
     email: "",
     mobileNumber: "",
-    gstin: "",
     state: "",
     city: "",
     otherCategory: "",
@@ -36,8 +35,6 @@ export default function Register() {
     "Incorporations",
     "Other",
   ];
-
-  const gstinPattern = /^[0-9A-Z]{15}$/;
 
   const indianStates = [
     "Andhra Pradesh",
@@ -79,11 +76,7 @@ export default function Register() {
   ];
 
   const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setForm({
-      ...form,
-      [name]: name === "gstin" ? value.toUpperCase() : value,
-    });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleServiceChange = (service: string) => {
@@ -101,11 +94,6 @@ export default function Register() {
 
     if (selectedServices.includes("Other") && !form.otherCategory.trim()) {
       setError("Please enter the other category");
-      return;
-    }
-
-    if (form.gstin && !gstinPattern.test(form.gstin.trim())) {
-      setError("Please enter a valid 15-character GSTIN");
       return;
     }
 
@@ -177,16 +165,6 @@ export default function Register() {
             pattern="[0-9]{10}"
             title="Enter a 10-digit mobile number"
             className="w-full border p-3 rounded"
-            onChange={handleChange}
-          />
-
-          <input
-            name="gstin"
-            placeholder="GSTIN (15 characters)"
-            value={form.gstin}
-            maxLength={15}
-            inputMode="text"
-            className="w-full border p-3 rounded uppercase"
             onChange={handleChange}
           />
 

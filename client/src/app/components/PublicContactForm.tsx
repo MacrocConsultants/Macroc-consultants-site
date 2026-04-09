@@ -55,25 +55,32 @@ export default function PublicContactForm({
     setStatusTone("");
 
     try {
+      const requests: Promise<Response>[] = [];
+
       if (contactEndpoint) {
-        fetch(contactEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        }).catch(() => {
-          // The public success message should not wait on dashboard persistence.
-        });
+        requests.push(
+          fetch(contactEndpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          })
+        );
       }
 
-      const emailResponse = await fetch(formAction, {
-        method: "POST",
-        body: formData,
-        headers: {
-          Accept: "application/json",
-        },
-      });
+      requests.push(
+        fetch(formAction, {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json",
+          },
+        })
+      );
 
-      if (!emailResponse.ok) {
+      const responses = await Promise.all(requests);
+      const hasFailedRequest = responses.some((response) => !response.ok);
+
+      if (hasFailedRequest) {
         throw new Error("Contact submit failed");
       }
 

@@ -11,7 +11,7 @@ export async function getHomepageContent(): Promise<HomepageContent> {
 
   try {
     const response = await fetch(contentEndpoint, {
-      next: { revalidate: 300 },
+      cache: "no-store",
     });
 
     if (!response.ok) {

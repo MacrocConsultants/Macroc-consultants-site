@@ -161,40 +161,13 @@ const getFolderLinkForCollection = (client, collectionKey, partner) => {
   );
 };
 
-const ensureClientProfileForUser = async (user) => {
-  if (!user || user.role !== "client") {
-    return null;
-  }
-
-  let client = await Client.findOne({ clientId: user._id }).populate("assignedPartner", "name email");
-  if (client) {
-    return client;
-  }
-
-  const account = await User.findById(user._id).select("name businessName services");
-  if (!account) {
-    return null;
-  }
-
-  client = await Client.create({
-    name: account.name,
-    companyName: account.businessName?.trim() || account.name,
-    clientId: account._id,
-    services: Array.isArray(account.services) ? account.services : [],
-    status: "pending",
-  });
-
-  return Client.findById(client._id).populate("assignedPartner", "name email");
-};
-
 exports.getClients = async (req, res) => {
   try {
     let query = {};
     if (req.user.role === "partner") {
       query = { assignedPartner: req.user._id };
     } else if (req.user.role === "client") {
-      const client = await ensureClientProfileForUser(req.user);
-      return res.json(client ? [client] : []);
+      query = { clientId: req.user._id };
     }
     const clients = await Client.find(query).populate("assignedPartner", "name email");
     res.json(clients);
@@ -461,11 +434,6 @@ exports.deleteDocument = async (req, res, next) => {
 
 exports.createClient = async (req, res) => {
   try {
-    const existingClient = await Client.findOne({ clientId: req.body.clientId });
-    if (existingClient) {
-      return res.status(400).json({ message: "A client profile already exists for this user." });
-    }
-
     const client = await Client.create(req.body);
     res.status(201).json(client);
   } catch (error) {
