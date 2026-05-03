@@ -1,7 +1,19 @@
 export type NavLink = { label: string; href: string };
 export type ServiceItem = { title: string; desc: string };
 
+export type ThemeColors = {
+  background: string;
+  foreground: string;
+  primary: string;
+  cardBg: string;
+  borderColor: string;
+};
+
 export type HomepageContent = {
+  colors: {
+    light: ThemeColors;
+    dark: ThemeColors;
+  };
   typography: {
     fontStyle: "professional" | "modern" | "classic";
   };
@@ -93,6 +105,22 @@ export type HomepageContent = {
 };
 
 export const defaultContent: HomepageContent = {
+  colors: {
+    light: {
+      background: "#eff6ff", // blue-50
+      foreground: "#1e3a8a", // blue-900
+      primary: "#10b981",    // emerald-500
+      cardBg: "#ffffff",     // white
+      borderColor: "#bfdbfe",// blue-200
+    },
+    dark: {
+      background: "#000000", // black
+      foreground: "#ffffff", // white
+      primary: "#FFD700",    // gold
+      cardBg: "#1a1a1a",     // dark gray
+      borderColor: "#333333",// dark border
+    },
+  },
   typography: {
     fontStyle: "professional",
   },
@@ -361,6 +389,10 @@ export function mergeContent(data: Partial<HomepageContent> | null | undefined):
   return {
     ...defaultContent,
     ...data,
+    colors: {
+      light: { ...defaultContent.colors.light, ...(data?.colors?.light || {}) },
+      dark: { ...defaultContent.colors.dark, ...(data?.colors?.dark || {}) },
+    },
     typography: { ...defaultContent.typography, ...(data?.typography || {}) },
     seo: { ...defaultContent.seo, ...(data?.seo || {}) },
     header: { ...defaultContent.header, ...(data?.header || {}) },

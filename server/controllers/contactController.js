@@ -64,3 +64,18 @@ exports.updateContactMessageStatus = async (req, res) => {
     res.status(500).json({ message: "Could not update message status." });
   }
 };
+
+exports.deleteContactMessage = async (req, res) => {
+  try {
+    const deletedMessage = await ContactMessage.findByIdAndDelete(req.params.id);
+
+    if (!deletedMessage) {
+      return res.status(404).json({ message: "Message not found." });
+    }
+
+    res.json({ message: "Message deleted successfully." });
+  } catch (error) {
+    console.error("DELETE CONTACT MESSAGE ERROR:", error);
+    res.status(500).json({ message: "Could not delete message." });
+  }
+};

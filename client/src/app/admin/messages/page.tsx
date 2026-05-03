@@ -18,6 +18,7 @@ export default function AdminMessagesPage() {
   const [messages, setMessages] = useState<ContactMessage[]>([]);
   const [loading, setLoading] = useState(true);
   const [updatingId, setUpdatingId] = useState("");
+  const [deletingId, setDeletingId] = useState("");
   const [statusMessage, setStatusMessage] = useState("");
 
   const fetchMessages = async () => {
@@ -50,6 +51,20 @@ export default function AdminMessagesPage() {
       setStatusMessage("Could not update the message status.");
     } finally {
       setUpdatingId("");
+    }
+  };
+
+  const deleteMessage = async (id: string) => {
+    setDeletingId(id);
+    setStatusMessage("");
+
+    try {
+      await api.delete(`/contact/${id}`);
+      fetchMessages();
+    } catch {
+      setStatusMessage("Could not delete the message.");
+    } finally {
+      setDeletingId("");
     }
   };
 
@@ -115,18 +130,28 @@ export default function AdminMessagesPage() {
                     </div>
                   </div>
 
-                  <button
-                    type="button"
-                    onClick={() => toggleStatus(item)}
-                    disabled={updatingId === item._id}
-                    className="rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
-                  >
-                    {updatingId === item._id
-                      ? "Saving..."
-                      : item.status === "new"
-                        ? "Mark Reviewed"
-                        : "Mark New"}
-                  </button>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => toggleStatus(item)}
+                      disabled={updatingId === item._id || deletingId === item._id}
+                      className="rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      {updatingId === item._id
+                        ? "Saving..."
+                        : item.status === "new"
+                          ? "Mark Reviewed"
+                          : "Mark New"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => deleteMessage(item._id)}
+                      disabled={updatingId === item._id || deletingId === item._id}
+                      className="rounded-xl bg-red-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      {deletingId === item._id ? "Deleting..." : "Delete"}
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}

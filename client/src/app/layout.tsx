@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Toaster } from "react-hot-toast";
 import { Merriweather, Source_Sans_3 } from "next/font/google";
+import { getHomepageContent } from "./utils/getHomepageContent";
 
 const headingFont = Merriweather({
   subsets: ["latin"],
@@ -28,10 +29,33 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const content = await getHomepageContent();
+  const colors = content.colors;
+
   return (
     <html lang="en" className="dark">
-      <body className={`${headingFont.variable} ${bodyFont.variable} bg-blue-50 text-blue-900 dark:bg-blue-950 dark:text-blue-50 antialiased`}>
+      <head>
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            :root {
+              --theme-bg: ${colors.light.background};
+              --theme-fg: ${colors.light.foreground};
+              --theme-primary: ${colors.light.primary};
+              --theme-card: ${colors.light.cardBg};
+              --theme-border: ${colors.light.borderColor};
+            }
+            .dark {
+              --theme-bg: ${colors.dark.background};
+              --theme-fg: ${colors.dark.foreground};
+              --theme-primary: ${colors.dark.primary};
+              --theme-card: ${colors.dark.cardBg};
+              --theme-border: ${colors.dark.borderColor};
+            }
+          `
+        }} />
+      </head>
+      <body className={`${headingFont.variable} ${bodyFont.variable} bg-theme-bg text-theme-fg antialiased`}>
         <Toaster position="top-right" />
         {children}
       </body>
