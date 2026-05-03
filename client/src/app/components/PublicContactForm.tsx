@@ -98,42 +98,42 @@ export default function PublicContactForm({
 
   return (
     <form
-      className="rounded-xl border border-slate-700 bg-slate-900/60 p-6 shadow-lg backdrop-blur-md"
+      className="rounded-xl border border-slate-200 bg-white p-6 shadow-md dark:border-slate-700 dark:bg-slate-900/60 dark:shadow-lg dark:backdrop-blur-md"
       onSubmit={handleSubmit}
     >
-      <label className="block text-sm font-medium text-gray-300">{formFields.nameLabel}</label>
+      <label className="block text-sm font-medium text-slate-700 dark:text-gray-300">{formFields.nameLabel}</label>
       <input
         name="name"
         required
-        className="mt-2 w-full rounded border border-slate-700 bg-slate-800 px-3 py-2 text-gray-100 outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400"
+        className="mt-2 w-full rounded border border-slate-300 bg-slate-50 px-3 py-2 text-slate-900 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 dark:border-slate-700 dark:bg-slate-800 dark:text-gray-100 dark:focus:border-emerald-400 dark:focus:ring-emerald-400"
         placeholder={formFields.namePlaceholder}
       />
 
-      <label className="mt-4 block text-sm font-medium text-gray-300">{formFields.emailLabel}</label>
+      <label className="mt-4 block text-sm font-medium text-slate-700 dark:text-gray-300">{formFields.emailLabel}</label>
       <input
         name="email"
         required
         type="email"
-        className="mt-2 w-full rounded border border-slate-700 bg-slate-800 px-3 py-2 text-gray-100 outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400"
+        className="mt-2 w-full rounded border border-slate-300 bg-slate-50 px-3 py-2 text-slate-900 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 dark:border-slate-700 dark:bg-slate-800 dark:text-gray-100 dark:focus:border-emerald-400 dark:focus:ring-emerald-400"
         placeholder={formFields.emailPlaceholder}
       />
 
-      <label className="mt-4 block text-sm font-medium text-gray-300">{formFields.mobileLabel}</label>
+      <label className="mt-4 block text-sm font-medium text-slate-700 dark:text-gray-300">{formFields.mobileLabel}</label>
       <input
         name="mobile"
         required
         type="tel"
-        className="mt-2 w-full rounded border border-slate-700 bg-slate-800 px-3 py-2 text-gray-100 outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400"
+        className="mt-2 w-full rounded border border-slate-300 bg-slate-50 px-3 py-2 text-slate-900 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 dark:border-slate-700 dark:bg-slate-800 dark:text-gray-100 dark:focus:border-emerald-400 dark:focus:ring-emerald-400"
         placeholder={formFields.mobilePlaceholder}
       />
 
-      <label className="mt-4 block text-sm font-medium text-gray-300">{formFields.serviceLabel}</label>
+      <label className="mt-4 block text-sm font-medium text-slate-700 dark:text-gray-300">{formFields.serviceLabel}</label>
       <select
         name="serviceRequired"
         required
         value={selectedService}
         onChange={(e) => setSelectedService(e.target.value)}
-        className="mt-2 w-full rounded border border-slate-700 bg-slate-800 px-3 py-2 text-gray-100 outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400"
+        className="mt-2 w-full rounded border border-slate-300 bg-slate-50 px-3 py-2 text-slate-900 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 dark:border-slate-700 dark:bg-slate-800 dark:text-gray-100 dark:focus:border-emerald-400 dark:focus:ring-emerald-400"
       >
         <option value="" disabled>
           Select a service
@@ -145,19 +145,19 @@ export default function PublicContactForm({
         ))}
       </select>
 
-      <label className="mt-4 block text-sm font-medium text-gray-300">{formFields.messageLabel}</label>
+      <label className="mt-4 block text-sm font-medium text-slate-700 dark:text-gray-300">{formFields.messageLabel}</label>
       <textarea
         name="message"
         required
         rows={4}
-        className="mt-2 w-full rounded border border-slate-700 bg-slate-800 px-3 py-2 text-gray-100 outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400"
+        className="mt-2 w-full rounded border border-slate-300 bg-slate-50 px-3 py-2 text-slate-900 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 dark:border-slate-700 dark:bg-slate-800 dark:text-gray-100 dark:focus:border-emerald-400 dark:focus:ring-emerald-400"
         placeholder={formFields.messagePlaceholder}
       />
 
       <button
         type="submit"
         disabled={submitting}
-        className="mt-5 w-full rounded-lg bg-amber-400 px-5 py-2 font-medium text-white transition hover:scale-[1.02] hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-70"
+        className="mt-5 w-full rounded-lg bg-emerald-600 px-5 py-2 font-medium text-white transition hover:scale-[1.02] hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-70 dark:bg-amber-400 dark:hover:opacity-90 dark:text-slate-900"
       >
         {submitting ? "Sending..." : formFields.buttonText}
       </button>
@@ -174,9 +174,9 @@ export default function PublicContactForm({
         </div>
       )}
 
-      <p className="mt-3 text-xs text-gray-500">
+      <p className="mt-3 text-xs text-slate-500 dark:text-gray-500">
         Messages will be sent securely to{" "}
-        <a href={`mailto:${email}`} className="text-emerald-400">
+        <a href={`mailto:${email}`} className="text-emerald-600 font-medium dark:font-normal dark:text-emerald-400">
           {email}
         </a>
         .
