@@ -24,7 +24,7 @@ function renderHeroTitle(title: string, highlight: string) {
   return (
     <>
       {before}
-      <span className="text-emerald-400">{match}</span>
+      <span className="text-theme-primary">{match}</span>
       {after}
     </>
   );
@@ -83,9 +83,9 @@ export default async function Home({ searchParams }: HomePageProps) {
     : contactServiceOptions[0] || "";
 
   return (
-    <div className={`public-site public-font-${selectedFontStyle} min-h-screen w-full bg-blue-50 text-blue-900 dark:bg-blue-950 dark:text-white transition-colors duration-200`}>
+    <div className={`public-site public-font-${selectedFontStyle} min-h-screen w-full bg-theme-bg text-theme-fg transition-colors duration-200`}>
       <div className="page-enter">
-      <header className="relative z-20 flex w-full items-center justify-between px-4 py-8 md:px-8">
+      <header className="relative z-20 flex w-full items-center justify-between px-4 py-8 md:px-8 bg-theme-bg text-theme-fg">
         <div className="flex items-center gap-4">
           <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-xl bg-black shadow-lg shadow-black/40">
             {content.header.logoImage ? (
@@ -99,8 +99,8 @@ export default async function Home({ searchParams }: HomePageProps) {
             )}
           </div>
           <div>
-            <h1 className="text-xl font-semibold text-blue-900 dark:text-white">{content.header.companyName}</h1>
-            <p className="text-sm font-medium" style={{ color: content.header.taglineColor || "#fcd34d" }}>
+            <h1 className="text-xl font-semibold text-theme-fg">{content.header.companyName}</h1>
+            <p className="text-sm font-medium text-theme-primary">
               {content.header.tagline}
             </p>
           </div>
@@ -109,25 +109,25 @@ export default async function Home({ searchParams }: HomePageProps) {
         <div className="flex items-center gap-3 md:hidden">
           <ThemeToggle />
           <details className="group relative">
-            <summary className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-lg border border-blue-300 bg-white/90 text-2xl text-blue-800 transition hover:border-emerald-500 dark:border-blue-700 dark:bg-blue-900/80 dark:text-white dark:hover:border-emerald-400">
+            <summary className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-lg border border-theme-border bg-theme-card text-2xl text-theme-fg transition hover:border-theme-primary">
               <span aria-hidden>⋮</span>
               <span className="sr-only">Open menu</span>
             </summary>
 
-            <div className="absolute right-0 top-14 z-30 w-52 origin-top rounded-xl border border-blue-200 bg-white/95 p-3 shadow-xl transition duration-200 ease-out [transform:scaleY(0.96)] [opacity:0] group-open:[transform:scaleY(1)] group-open:[opacity:1] dark:border-blue-700 dark:bg-blue-900/95">
-              <nav className="flex flex-col gap-1 text-sm text-blue-800 dark:text-blue-100">
+            <div className="absolute right-0 top-14 z-30 w-52 origin-top rounded-xl border border-theme-border bg-theme-card p-3 shadow-xl transition duration-200 ease-out [transform:scaleY(0.96)] [opacity:0] group-open:[transform:scaleY(1)] group-open:[opacity:1]">
+              <nav className="flex flex-col gap-1 text-sm text-theme-fg">
                 {content.header.navLinks.map((link, index) => (
                   <a
                     key={`mobile-${link.label}-${index}`}
                     href={link.href}
-                    className="rounded-lg px-3 py-2 transition hover:bg-blue-100 dark:hover:bg-white/10"
+                    className="rounded-lg px-3 py-2 transition hover:bg-theme-bg"
                   >
                     {link.label}
                   </a>
                 ))}
                 <Link
                   href="/login"
-                  className="mt-2 rounded-lg border border-emerald-500 px-3 py-2 text-center font-medium text-emerald-600 transition hover:bg-emerald-50 dark:border-emerald-400 dark:text-white dark:hover:bg-emerald-500/20"
+                  className="mt-2 rounded-lg border border-theme-primary px-3 py-2 text-center font-medium text-theme-primary transition hover:bg-theme-primary/10"
                 >
                   {content.header.loginButtonText}
                 </Link>
@@ -137,9 +137,9 @@ export default async function Home({ searchParams }: HomePageProps) {
         </div>
 
         <div className="hidden items-center gap-6 md:flex">
-          <nav className="flex gap-8 text-sm text-blue-700 dark:text-gray-200">
+          <nav className="flex gap-8 text-sm text-theme-fg">
             {content.header.navLinks.map((link, index) => (
-              <a key={`${link.label}-${index}`} href={link.href} className="transition hover:text-emerald-600 dark:hover:text-amber-300">
+              <a key={`${link.label}-${index}`} href={link.href} className="transition hover:text-theme-primary">
                 {link.label}
               </a>
             ))}
@@ -148,7 +148,7 @@ export default async function Home({ searchParams }: HomePageProps) {
             <ThemeToggle />
             <Link
               href="/login"
-              className="rounded-lg border border-blue-300 px-5 py-2 text-sm font-medium text-blue-800 transition hover:border-emerald-500 hover:bg-blue-50 dark:border-blue-400 dark:text-white dark:hover:border-emerald-400 dark:hover:bg-white/10"
+              className="rounded-lg border border-theme-border px-5 py-2 text-sm font-medium text-theme-fg transition hover:border-theme-primary hover:bg-theme-primary/10"
             >
               {content.header.loginButtonText}
             </Link>
@@ -165,99 +165,91 @@ export default async function Home({ searchParams }: HomePageProps) {
           }}
         >
           {/* Use a dark overlay always for the hero so text remains readable, or adapt it. Keeping it dark for consistency with background image. */}
-          <div className="absolute inset-0 bg-blue-900/60 backdrop-blur-[2px] dark:bg-blue-950/90" />
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] dark:bg-black/80" />
 
-          <div className="relative z-10 grid w-full items-center gap-12 px-4 md:grid-cols-2 md:px-8">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-emerald-500 dark:text-amber-300">{content.hero.eyebrow}</p>
-              <h2 className="mt-4 text-4xl font-extrabold leading-tight text-white md:text-5xl">
-                {renderHeroTitle(content.hero.title, content.hero.highlight)}
-              </h2>
-              <p className="mt-6 max-w-lg text-lg text-blue-100 dark:text-gray-300">{content.hero.description}</p>
+          <div className="relative z-10 flex w-full flex-col items-center text-center gap-8 px-4 md:px-8">
+            <p className="text-sm font-semibold uppercase tracking-wide text-theme-primary">{content.hero.eyebrow}</p>
+            <h2 className="mt-4 text-4xl font-extrabold leading-tight text-white md:text-5xl max-w-4xl">
+              {renderHeroTitle(content.hero.title, content.hero.highlight)}
+            </h2>
+            <p className="mt-6 max-w-2xl text-lg text-gray-200">{content.hero.description}</p>
 
-              <div className="mt-8 flex gap-4">
-                <a
-                  href={content.hero.primaryButtonHref}
-                  className="pro-interactive rounded-lg bg-emerald-500 px-6 py-3 text-white shadow-md transition hover:scale-105 hover:shadow-xl"
-                >
-                  {content.hero.primaryButtonText}
-                </a>
-                <a
-                  href={content.hero.secondaryButtonHref}
-                  className="pro-interactive rounded-lg border border-gray-400 px-6 py-3 text-gray-200 transition hover:border-amber-300 hover:bg-white/10"
-                >
-                  {content.hero.secondaryButtonText}
-                </a>
-              </div>
-
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <Link
-                  href="/login"
-                  className="pro-interactive rounded-lg border border-emerald-400 bg-white/10 px-6 py-3 text-center text-sm font-semibold text-white transition hover:bg-white/20 dark:border-amber-300"
-                >
-                  Are you an existing client? Please login
-                </Link>
-                <Link
-                  href="/register"
-                  className="pro-interactive rounded-lg border border-blue-300 px-6 py-3 text-center text-sm font-semibold text-white transition hover:border-emerald-400 hover:bg-white/10 dark:border-blue-400 dark:text-blue-100"
-                >
-                  New client ? Register
-                </Link>
-              </div>
-
-              <div className="mt-10 text-sm text-blue-200 dark:text-gray-400">
-                <div className="font-medium text-white">{content.hero.trustLabel}</div>
-                <div className="mt-1 text-blue-100 dark:text-gray-300">{content.hero.trustItems.join(" · ")}</div>
-              </div>
+            <div className="mt-8 flex gap-4 justify-center">
+              <a
+                href={content.hero.primaryButtonHref}
+                className="pro-interactive rounded-lg bg-theme-primary px-6 py-3 text-white shadow-md transition hover:scale-105 hover:shadow-xl"
+              >
+                {content.hero.primaryButtonText}
+              </a>
+              <a
+                href={content.hero.secondaryButtonHref}
+                className="pro-interactive rounded-lg border border-gray-400 px-6 py-3 text-white transition hover:border-theme-primary hover:bg-white/10"
+              >
+                {content.hero.secondaryButtonText}
+              </a>
             </div>
 
-            <div className="relative z-10">
-              <div className="overflow-hidden rounded-2xl shadow-xl shadow-blue-900/20 dark:shadow-lg">
-                <img src={content.hero.sideImage} alt={content.hero.sideImageAlt} className="h-full w-full object-cover" />
-              </div>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center justify-center">
+              <Link
+                href="/login"
+                className="pro-interactive rounded-lg border border-theme-primary bg-white/10 px-6 py-3 text-center text-sm font-semibold text-white transition hover:bg-white/20"
+              >
+                Are you an existing client? Please login
+              </Link>
+              <Link
+                href="/register"
+                className="pro-interactive rounded-lg border border-gray-400 px-6 py-3 text-center text-sm font-semibold text-white transition hover:border-theme-primary hover:bg-white/10"
+              >
+                New client ? Register
+              </Link>
+            </div>
+
+            <div className="mt-10 text-sm text-gray-300">
+              <div className="font-medium text-white">{content.hero.trustLabel}</div>
+              <div className="mt-1 text-gray-200">{content.hero.trustItems.join(" · ")}</div>
             </div>
           </div>
         </section>
 
-        <section id="services" className="w-full px-4 py-16 md:px-8 bg-white dark:bg-transparent">
-          <h3 className="text-3xl font-semibold text-emerald-600 dark:text-amber-300">{content.services.title}</h3>
-          <p className="mt-3 text-blue-700 dark:text-gray-300">{content.services.subtitle}</p>
+        <section id="services" className="w-full px-4 py-16 md:px-8 bg-theme-bg">
+          <h3 className="text-3xl font-semibold text-theme-primary">{content.services.title}</h3>
+          <p className="mt-3 text-theme-fg opacity-80">{content.services.subtitle}</p>
 
           <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-3">
             {content.services.items.map((item, index) => (
               <Link
                 key={`${item.title}-${index}`}
                 href={`/services/${slugifyServiceTitle(item.title)}`}
-                className="pro-interactive block rounded-xl border border-blue-200 bg-blue-50 p-6 shadow-sm transition hover:border-emerald-500 hover:shadow-emerald-500/10 dark:border-blue-700 dark:bg-blue-900/70 dark:shadow-md dark:hover:border-emerald-400 dark:hover:shadow-emerald-400/20"
+                className="pro-interactive block rounded-xl border border-theme-border bg-theme-card p-6 shadow-sm transition hover:border-theme-primary hover:shadow-theme-primary/10"
               >
-                <h4 className="font-semibold text-emerald-600 dark:text-amber-300">{item.title}</h4>
+                <h4 className="font-semibold text-theme-primary">{item.title}</h4>
               </Link>
             ))}
           </div>
         </section>
 
-        <section id="about" className="w-full border-t border-blue-200 dark:border-blue-800 px-4 py-16 md:px-8 bg-blue-50 dark:bg-transparent">
+        <section id="about" className="w-full border-t border-theme-border px-4 py-16 md:px-8 bg-theme-card">
           <div className="grid items-center gap-10 md:grid-cols-2">
             <div>
-              <h3 className="text-3xl font-semibold text-emerald-600 dark:text-amber-300">{content.about.title}</h3>
-              <p className="mt-4 leading-relaxed text-blue-800 dark:text-gray-300">{content.about.description}</p>
-              <ul className="mt-6 space-y-2 text-blue-800 dark:text-gray-300">
+              <h3 className="text-3xl font-semibold text-theme-primary">{content.about.title}</h3>
+              <p className="mt-4 leading-relaxed text-theme-fg opacity-90">{content.about.description}</p>
+              <ul className="mt-6 space-y-2 text-theme-fg opacity-90">
                 {content.about.bullets.map((bullet, index) => (
                   <li key={`${bullet}-${index}`}>* {bullet}</li>
                 ))}
               </ul>
             </div>
 
-            <div className="rounded-xl border border-blue-200 bg-white p-6 text-center shadow-md dark:border-blue-700 dark:bg-gradient-to-tr dark:from-blue-800 dark:to-blue-900 dark:shadow-lg">
-              <h4 className="font-semibold text-emerald-600 dark:text-amber-300">{content.about.approachTitle}</h4>
-              <p className="mt-3 text-sm text-blue-700 dark:text-gray-400">{content.about.approachText}</p>
+            <div className="rounded-xl border border-theme-border bg-theme-bg p-6 text-center shadow-md">
+              <h4 className="font-semibold text-theme-primary">{content.about.approachTitle}</h4>
+              <p className="mt-3 text-sm text-theme-fg opacity-80">{content.about.approachText}</p>
             </div>
           </div>
         </section>
 
-        <section id="contact" className="w-full border-t border-blue-200 dark:border-transparent px-4 py-16 md:px-8 bg-white dark:bg-transparent">
-          <h3 className="text-3xl font-semibold text-emerald-600 dark:text-amber-300">{content.contact.title}</h3>
-          <p className="mt-2 text-blue-700 dark:text-gray-300">{content.contact.subtitle}</p>
+        <section id="contact" className="w-full border-t border-theme-border px-4 py-16 md:px-8 bg-theme-bg">
+          <h3 className="text-3xl font-semibold text-theme-primary">{content.contact.title}</h3>
+          <p className="mt-2 text-theme-fg opacity-80">{content.contact.subtitle}</p>
 
           <div className="mt-10 grid gap-8 md:grid-cols-2">
             <PublicContactForm
@@ -268,20 +260,20 @@ export default async function Home({ searchParams }: HomePageProps) {
               defaultService={selectedContactService}
             />
 
-            <div className="rounded-xl border border-blue-200 bg-blue-50 p-6 shadow-md dark:border-blue-700 dark:bg-blue-900/60 dark:shadow-lg">
-              <h4 className="font-semibold text-emerald-600 dark:text-amber-300">{content.contact.officeTitle}</h4>
-              <p className="mt-3 text-blue-700 dark:text-gray-300">
+            <div className="rounded-xl border border-theme-border bg-theme-card p-6 shadow-md">
+              <h4 className="font-semibold text-theme-primary">{content.contact.officeTitle}</h4>
+              <p className="mt-3 text-theme-fg opacity-90">
                 Email:{" "}
-                <a href={`mailto:${content.contact.email}`} className="text-emerald-600 font-medium dark:font-normal dark:text-emerald-400">
+                <a href={`mailto:${content.contact.email}`} className="text-theme-primary font-medium hover:underline">
                   {content.contact.email}
                 </a>
               </p>
-              <p className="mt-2 text-blue-700 dark:text-gray-300">Phone: {content.contact.phone}</p>
-              <p className="mt-2 text-blue-700 dark:text-gray-300">Address: {content.contact.address}</p>
+              <p className="mt-2 text-theme-fg opacity-90">Phone: {content.contact.phone}</p>
+              <p className="mt-2 text-theme-fg opacity-90">Address: {content.contact.address}</p>
 
-              <div className="mt-6 rounded-lg border border-blue-200 bg-white p-4 dark:border-blue-700 dark:bg-blue-950/70">
-                <h5 className="font-medium text-blue-900 dark:text-white">{content.contact.whyChooseTitle}</h5>
-                <ul className="mt-3 space-y-2 text-sm text-blue-700 dark:text-gray-300">
+              <div className="mt-6 rounded-lg border border-theme-border bg-theme-bg p-4">
+                <h5 className="font-medium text-theme-fg">{content.contact.whyChooseTitle}</h5>
+                <ul className="mt-3 space-y-2 text-sm text-theme-fg opacity-80">
                   {content.contact.whyChooseItems.map((item, index) => (
                     <li key={`${item}-${index}`}>• {item}</li>
                   ))}
@@ -292,7 +284,7 @@ export default async function Home({ searchParams }: HomePageProps) {
         </section>
       </main>
 
-      <footer className="w-full border-t border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950 px-4 py-8 text-center text-sm text-blue-600 dark:text-gray-400 md:px-8">
+      <footer className="w-full border-t border-theme-border bg-theme-card px-4 py-8 text-center text-sm text-theme-fg opacity-80 md:px-8">
         <div>{content.footer.copyright.replace("2024", String(currentYear))}</div>
         <div className="mt-1">{content.footer.note}</div>
       </footer>

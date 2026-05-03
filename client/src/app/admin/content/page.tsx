@@ -6,7 +6,19 @@ import api from "../../../utils/api";
 type NavLink = { label: string; href: string };
 type ServiceItem = { title: string; desc: string };
 
+type ThemeColors = {
+  background: string;
+  foreground: string;
+  primary: string;
+  cardBg: string;
+  borderColor: string;
+};
+
 type ContentForm = {
+  colors: {
+    light: ThemeColors;
+    dark: ThemeColors;
+  };
   assets: {
     seoOgImage: { fileId: string; fileName: string; url: string };
     headerLogoImage: { fileId: string; fileName: string; url: string };
@@ -104,6 +116,22 @@ type ContentForm = {
 };
 
 const defaultForm: ContentForm = {
+  colors: {
+    light: {
+      background: "#eff6ff",
+      foreground: "#1e3a8a",
+      primary: "#10b981",
+      cardBg: "#ffffff",
+      borderColor: "#bfdbfe",
+    },
+    dark: {
+      background: "#000000",
+      foreground: "#ffffff",
+      primary: "#FFD700",
+      cardBg: "#1a1a1a",
+      borderColor: "#333333",
+    },
+  },
   assets: {
     seoOgImage: { fileId: "", fileName: "", url: "" },
     headerLogoImage: { fileId: "", fileName: "", url: "" },
@@ -378,6 +406,10 @@ function mergeContent(data: Partial<ContentForm> | null | undefined): ContentFor
   return {
     ...defaultForm,
     ...data,
+    colors: {
+      light: { ...defaultForm.colors.light, ...(data?.colors?.light || {}) },
+      dark: { ...defaultForm.colors.dark, ...(data?.colors?.dark || {}) },
+    },
     assets: { ...defaultForm.assets, ...(data?.assets || {}) },
     typography: { ...defaultForm.typography, ...(data?.typography || {}) },
     seo: { ...defaultForm.seo, ...(data?.seo || {}) },
@@ -653,6 +685,48 @@ export default function AdminContent() {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        <Section title="Theme Colors">
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="space-y-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <h4 className="font-semibold text-slate-800">Light Mode</h4>
+              <Field label="Background Color">
+                <input type="color" className="h-10 w-full cursor-pointer rounded-lg border-slate-300" value={formData.colors.light.background} onChange={(e) => setFormData({ ...formData, colors: { ...formData.colors, light: { ...formData.colors.light, background: e.target.value } } })} />
+              </Field>
+              <Field label="Foreground Text Color">
+                <input type="color" className="h-10 w-full cursor-pointer rounded-lg border-slate-300" value={formData.colors.light.foreground} onChange={(e) => setFormData({ ...formData, colors: { ...formData.colors, light: { ...formData.colors.light, foreground: e.target.value } } })} />
+              </Field>
+              <Field label="Primary Accent Color">
+                <input type="color" className="h-10 w-full cursor-pointer rounded-lg border-slate-300" value={formData.colors.light.primary} onChange={(e) => setFormData({ ...formData, colors: { ...formData.colors, light: { ...formData.colors.light, primary: e.target.value } } })} />
+              </Field>
+              <Field label="Card Background Color">
+                <input type="color" className="h-10 w-full cursor-pointer rounded-lg border-slate-300" value={formData.colors.light.cardBg} onChange={(e) => setFormData({ ...formData, colors: { ...formData.colors, light: { ...formData.colors.light, cardBg: e.target.value } } })} />
+              </Field>
+              <Field label="Border Color">
+                <input type="color" className="h-10 w-full cursor-pointer rounded-lg border-slate-300" value={formData.colors.light.borderColor} onChange={(e) => setFormData({ ...formData, colors: { ...formData.colors, light: { ...formData.colors.light, borderColor: e.target.value } } })} />
+              </Field>
+            </div>
+
+            <div className="space-y-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <h4 className="font-semibold text-slate-800">Dark Mode</h4>
+              <Field label="Background Color">
+                <input type="color" className="h-10 w-full cursor-pointer rounded-lg border-slate-300" value={formData.colors.dark.background} onChange={(e) => setFormData({ ...formData, colors: { ...formData.colors, dark: { ...formData.colors.dark, background: e.target.value } } })} />
+              </Field>
+              <Field label="Foreground Text Color">
+                <input type="color" className="h-10 w-full cursor-pointer rounded-lg border-slate-300" value={formData.colors.dark.foreground} onChange={(e) => setFormData({ ...formData, colors: { ...formData.colors, dark: { ...formData.colors.dark, foreground: e.target.value } } })} />
+              </Field>
+              <Field label="Primary Accent Color">
+                <input type="color" className="h-10 w-full cursor-pointer rounded-lg border-slate-300" value={formData.colors.dark.primary} onChange={(e) => setFormData({ ...formData, colors: { ...formData.colors, dark: { ...formData.colors.dark, primary: e.target.value } } })} />
+              </Field>
+              <Field label="Card Background Color">
+                <input type="color" className="h-10 w-full cursor-pointer rounded-lg border-slate-300" value={formData.colors.dark.cardBg} onChange={(e) => setFormData({ ...formData, colors: { ...formData.colors, dark: { ...formData.colors.dark, cardBg: e.target.value } } })} />
+              </Field>
+              <Field label="Border Color">
+                <input type="color" className="h-10 w-full cursor-pointer rounded-lg border-slate-300" value={formData.colors.dark.borderColor} onChange={(e) => setFormData({ ...formData, colors: { ...formData.colors, dark: { ...formData.colors.dark, borderColor: e.target.value } } })} />
+              </Field>
+            </div>
+          </div>
+        </Section>
+
         <Section title="SEO">
           <Field label="Website Font Style">
             <select
@@ -764,14 +838,6 @@ export default function AdminContent() {
             value={formData.hero.backgroundImage}
             onUrlChange={(value) => setFormData({ ...formData, hero: { ...formData.hero, backgroundImage: value } })}
           />
-          <ImageUrlField
-            label="Hero Side Image URL"
-            value={formData.hero.sideImage}
-            onUrlChange={(value) => setFormData({ ...formData, hero: { ...formData.hero, sideImage: value } })}
-          />
-          <Field label="Hero Side Image Alt Text">
-            <input className={inputClassName} value={formData.hero.sideImageAlt} onChange={(e) => setFormData({ ...formData, hero: { ...formData.hero, sideImageAlt: e.target.value } })} />
-          </Field>
         </Section>
 
         <Section title="Services Section" id="services-content">

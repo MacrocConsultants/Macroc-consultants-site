@@ -8,7 +8,17 @@ const config: Config = {
   ],
   darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        theme: {
+          bg: "var(--theme-bg)",
+          fg: "var(--theme-fg)",
+          primary: "var(--theme-primary)",
+          card: "var(--theme-card)",
+          border: "var(--theme-border)",
+        },
+      },
+    },
   },
   plugins: [],
 }
