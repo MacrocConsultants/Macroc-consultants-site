@@ -59,6 +59,7 @@ type ContentForm = {
     backgroundImage: string;
     sideImage: string;
     sideImageAlt: string;
+    contentSpacing: "tight" | "normal" | "relaxed";
   };
   services: {
     title: string;
@@ -180,6 +181,7 @@ const defaultForm: ContentForm = {
     backgroundImage: "/images/team-accounting-bg.png",
     sideImage: "/images/team-accounting-bg.png",
     sideImageAlt: "Virtual Experts",
+    contentSpacing: "tight",
   },
   services: {
     title: "Our Services",
@@ -838,6 +840,22 @@ export default function AdminContent() {
             value={formData.hero.backgroundImage}
             onUrlChange={(value) => setFormData({ ...formData, hero: { ...formData.hero, backgroundImage: value } })}
           />
+          <Field label="Hero Content Spacing">
+            <select
+              className={inputClassName}
+              value={formData.hero.contentSpacing || "tight"}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  hero: { ...formData.hero, contentSpacing: e.target.value as "tight" | "normal" | "relaxed" },
+                })
+              }
+            >
+              <option value="tight">Tight</option>
+              <option value="normal">Normal</option>
+              <option value="relaxed">Relaxed</option>
+            </select>
+          </Field>
         </Section>
 
         <Section title="Services Section" id="services-content">

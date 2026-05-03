@@ -48,6 +48,7 @@ export type HomepageContent = {
     backgroundImage: string;
     sideImage: string;
     sideImageAlt: string;
+    contentSpacing: "tight" | "normal" | "relaxed";
   };
   services: {
     title: string;
@@ -163,6 +164,7 @@ export const defaultContent: HomepageContent = {
     backgroundImage: "/images/team-accounting-bg.png",
     sideImage: "/images/team-accounting-bg.png",
     sideImageAlt: "Virtual Experts",
+    contentSpacing: "tight",
   },
   services: {
     title: "Our Services",
