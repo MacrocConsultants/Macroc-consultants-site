@@ -83,7 +83,7 @@ export default async function Home({ searchParams }: HomePageProps) {
     : contactServiceOptions[0] || "";
 
   return (
-    <div className={`public-site public-font-${selectedFontStyle} min-h-screen w-full bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-white transition-colors duration-200`}>
+    <div className={`public-site public-font-${selectedFontStyle} min-h-screen w-full bg-blue-50 text-blue-900 dark:bg-blue-950 dark:text-white transition-colors duration-200`}>
       <div className="page-enter">
       <header className="relative z-20 flex w-full items-center justify-between px-4 py-8 md:px-8">
         <div className="flex items-center gap-4">
@@ -99,7 +99,7 @@ export default async function Home({ searchParams }: HomePageProps) {
             )}
           </div>
           <div>
-            <h1 className="text-xl font-semibold text-slate-900 dark:text-white">{content.header.companyName}</h1>
+            <h1 className="text-xl font-semibold text-blue-900 dark:text-white">{content.header.companyName}</h1>
             <p className="text-sm font-medium" style={{ color: content.header.taglineColor || "#fcd34d" }}>
               {content.header.tagline}
             </p>
@@ -109,18 +109,18 @@ export default async function Home({ searchParams }: HomePageProps) {
         <div className="flex items-center gap-3 md:hidden">
           <ThemeToggle />
           <details className="group relative">
-            <summary className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-lg border border-slate-300 bg-white/80 text-2xl text-slate-700 transition hover:border-emerald-500 dark:border-slate-700 dark:bg-slate-900/80 dark:text-white dark:hover:border-emerald-400">
+            <summary className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-lg border border-blue-300 bg-white/90 text-2xl text-blue-800 transition hover:border-emerald-500 dark:border-blue-700 dark:bg-blue-900/80 dark:text-white dark:hover:border-emerald-400">
               <span aria-hidden>⋮</span>
               <span className="sr-only">Open menu</span>
             </summary>
 
-            <div className="absolute right-0 top-14 z-30 w-52 origin-top rounded-xl border border-slate-200 bg-white/95 p-3 shadow-xl transition duration-200 ease-out [transform:scaleY(0.96)] [opacity:0] group-open:[transform:scaleY(1)] group-open:[opacity:1] dark:border-slate-700 dark:bg-slate-900/95">
-              <nav className="flex flex-col gap-1 text-sm text-slate-700 dark:text-slate-100">
+            <div className="absolute right-0 top-14 z-30 w-52 origin-top rounded-xl border border-blue-200 bg-white/95 p-3 shadow-xl transition duration-200 ease-out [transform:scaleY(0.96)] [opacity:0] group-open:[transform:scaleY(1)] group-open:[opacity:1] dark:border-blue-700 dark:bg-blue-900/95">
+              <nav className="flex flex-col gap-1 text-sm text-blue-800 dark:text-blue-100">
                 {content.header.navLinks.map((link, index) => (
                   <a
                     key={`mobile-${link.label}-${index}`}
                     href={link.href}
-                    className="rounded-lg px-3 py-2 transition hover:bg-slate-100 dark:hover:bg-white/10"
+                    className="rounded-lg px-3 py-2 transition hover:bg-blue-100 dark:hover:bg-white/10"
                   >
                     {link.label}
                   </a>
@@ -137,7 +137,7 @@ export default async function Home({ searchParams }: HomePageProps) {
         </div>
 
         <div className="hidden items-center gap-6 md:flex">
-          <nav className="flex gap-8 text-sm text-slate-600 dark:text-gray-200">
+          <nav className="flex gap-8 text-sm text-blue-700 dark:text-gray-200">
             {content.header.navLinks.map((link, index) => (
               <a key={`${link.label}-${index}`} href={link.href} className="transition hover:text-emerald-600 dark:hover:text-amber-300">
                 {link.label}
@@ -148,7 +148,7 @@ export default async function Home({ searchParams }: HomePageProps) {
             <ThemeToggle />
             <Link
               href="/login"
-              className="rounded-lg border border-slate-300 px-5 py-2 text-sm font-medium text-slate-700 transition hover:border-emerald-500 hover:bg-slate-50 dark:border-slate-400 dark:text-white dark:hover:border-emerald-400 dark:hover:bg-white/10"
+              className="rounded-lg border border-blue-300 px-5 py-2 text-sm font-medium text-blue-800 transition hover:border-emerald-500 hover:bg-blue-50 dark:border-blue-400 dark:text-white dark:hover:border-emerald-400 dark:hover:bg-white/10"
             >
               {content.header.loginButtonText}
             </Link>
@@ -165,7 +165,7 @@ export default async function Home({ searchParams }: HomePageProps) {
           }}
         >
           {/* Use a dark overlay always for the hero so text remains readable, or adapt it. Keeping it dark for consistency with background image. */}
-          <div className="absolute inset-0 bg-slate-900/90 backdrop-blur-[3px] dark:bg-black/94" />
+          <div className="absolute inset-0 bg-blue-900/60 backdrop-blur-[2px] dark:bg-blue-950/90" />
 
           <div className="relative z-10 grid w-full items-center gap-12 px-4 md:grid-cols-2 md:px-8">
             <div>
@@ -173,7 +173,7 @@ export default async function Home({ searchParams }: HomePageProps) {
               <h2 className="mt-4 text-4xl font-extrabold leading-tight text-white md:text-5xl">
                 {renderHeroTitle(content.hero.title, content.hero.highlight)}
               </h2>
-              <p className="mt-6 max-w-lg text-lg text-slate-200 dark:text-gray-300">{content.hero.description}</p>
+              <p className="mt-6 max-w-lg text-lg text-blue-100 dark:text-gray-300">{content.hero.description}</p>
 
               <div className="mt-8 flex gap-4">
                 <a
@@ -199,20 +199,20 @@ export default async function Home({ searchParams }: HomePageProps) {
                 </Link>
                 <Link
                   href="/register"
-                  className="pro-interactive rounded-lg border border-slate-300 px-6 py-3 text-center text-sm font-semibold text-white transition hover:border-emerald-400 hover:bg-white/10 dark:border-slate-400 dark:text-slate-100"
+                  className="pro-interactive rounded-lg border border-blue-300 px-6 py-3 text-center text-sm font-semibold text-white transition hover:border-emerald-400 hover:bg-white/10 dark:border-blue-400 dark:text-blue-100"
                 >
                   New client ? Register
                 </Link>
               </div>
 
-              <div className="mt-10 text-sm text-slate-300 dark:text-gray-400">
+              <div className="mt-10 text-sm text-blue-200 dark:text-gray-400">
                 <div className="font-medium text-white">{content.hero.trustLabel}</div>
-                <div className="mt-1 text-slate-200 dark:text-gray-300">{content.hero.trustItems.join(" · ")}</div>
+                <div className="mt-1 text-blue-100 dark:text-gray-300">{content.hero.trustItems.join(" · ")}</div>
               </div>
             </div>
 
             <div className="relative z-10">
-              <div className="overflow-hidden rounded-2xl shadow-xl shadow-slate-900/20 dark:shadow-lg">
+              <div className="overflow-hidden rounded-2xl shadow-xl shadow-blue-900/20 dark:shadow-lg">
                 <img src={content.hero.sideImage} alt={content.hero.sideImageAlt} className="h-full w-full object-cover" />
               </div>
             </div>
@@ -221,14 +221,14 @@ export default async function Home({ searchParams }: HomePageProps) {
 
         <section id="services" className="w-full px-4 py-16 md:px-8 bg-white dark:bg-transparent">
           <h3 className="text-3xl font-semibold text-emerald-600 dark:text-amber-300">{content.services.title}</h3>
-          <p className="mt-3 text-slate-600 dark:text-gray-300">{content.services.subtitle}</p>
+          <p className="mt-3 text-blue-700 dark:text-gray-300">{content.services.subtitle}</p>
 
           <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-3">
             {content.services.items.map((item, index) => (
               <Link
                 key={`${item.title}-${index}`}
                 href={`/services/${slugifyServiceTitle(item.title)}`}
-                className="pro-interactive block rounded-xl border border-slate-200 bg-slate-50 p-6 shadow-sm transition hover:border-emerald-500 hover:shadow-emerald-500/10 dark:border-slate-700 dark:bg-slate-900/70 dark:shadow-md dark:hover:border-emerald-400 dark:hover:shadow-emerald-400/20"
+                className="pro-interactive block rounded-xl border border-blue-200 bg-blue-50 p-6 shadow-sm transition hover:border-emerald-500 hover:shadow-emerald-500/10 dark:border-blue-700 dark:bg-blue-900/70 dark:shadow-md dark:hover:border-emerald-400 dark:hover:shadow-emerald-400/20"
               >
                 <h4 className="font-semibold text-emerald-600 dark:text-amber-300">{item.title}</h4>
               </Link>
@@ -236,28 +236,28 @@ export default async function Home({ searchParams }: HomePageProps) {
           </div>
         </section>
 
-        <section id="about" className="w-full border-t border-slate-200 dark:border-slate-800 px-4 py-16 md:px-8 bg-slate-50 dark:bg-transparent">
+        <section id="about" className="w-full border-t border-blue-200 dark:border-blue-800 px-4 py-16 md:px-8 bg-blue-50 dark:bg-transparent">
           <div className="grid items-center gap-10 md:grid-cols-2">
             <div>
               <h3 className="text-3xl font-semibold text-emerald-600 dark:text-amber-300">{content.about.title}</h3>
-              <p className="mt-4 leading-relaxed text-slate-700 dark:text-gray-300">{content.about.description}</p>
-              <ul className="mt-6 space-y-2 text-slate-700 dark:text-gray-300">
+              <p className="mt-4 leading-relaxed text-blue-800 dark:text-gray-300">{content.about.description}</p>
+              <ul className="mt-6 space-y-2 text-blue-800 dark:text-gray-300">
                 {content.about.bullets.map((bullet, index) => (
                   <li key={`${bullet}-${index}`}>* {bullet}</li>
                 ))}
               </ul>
             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-white p-6 text-center shadow-md dark:border-slate-700 dark:bg-gradient-to-tr dark:from-slate-800 dark:to-slate-900 dark:shadow-lg">
+            <div className="rounded-xl border border-blue-200 bg-white p-6 text-center shadow-md dark:border-blue-700 dark:bg-gradient-to-tr dark:from-blue-800 dark:to-blue-900 dark:shadow-lg">
               <h4 className="font-semibold text-emerald-600 dark:text-amber-300">{content.about.approachTitle}</h4>
-              <p className="mt-3 text-sm text-slate-600 dark:text-gray-400">{content.about.approachText}</p>
+              <p className="mt-3 text-sm text-blue-700 dark:text-gray-400">{content.about.approachText}</p>
             </div>
           </div>
         </section>
 
-        <section id="contact" className="w-full border-t border-slate-200 dark:border-transparent px-4 py-16 md:px-8 bg-white dark:bg-transparent">
+        <section id="contact" className="w-full border-t border-blue-200 dark:border-transparent px-4 py-16 md:px-8 bg-white dark:bg-transparent">
           <h3 className="text-3xl font-semibold text-emerald-600 dark:text-amber-300">{content.contact.title}</h3>
-          <p className="mt-2 text-slate-600 dark:text-gray-300">{content.contact.subtitle}</p>
+          <p className="mt-2 text-blue-700 dark:text-gray-300">{content.contact.subtitle}</p>
 
           <div className="mt-10 grid gap-8 md:grid-cols-2">
             <PublicContactForm
@@ -268,20 +268,20 @@ export default async function Home({ searchParams }: HomePageProps) {
               defaultService={selectedContactService}
             />
 
-            <div className="rounded-xl border border-slate-200 bg-slate-50 p-6 shadow-md dark:border-slate-700 dark:bg-slate-900/60 dark:shadow-lg">
+            <div className="rounded-xl border border-blue-200 bg-blue-50 p-6 shadow-md dark:border-blue-700 dark:bg-blue-900/60 dark:shadow-lg">
               <h4 className="font-semibold text-emerald-600 dark:text-amber-300">{content.contact.officeTitle}</h4>
-              <p className="mt-3 text-slate-600 dark:text-gray-300">
+              <p className="mt-3 text-blue-700 dark:text-gray-300">
                 Email:{" "}
                 <a href={`mailto:${content.contact.email}`} className="text-emerald-600 font-medium dark:font-normal dark:text-emerald-400">
                   {content.contact.email}
                 </a>
               </p>
-              <p className="mt-2 text-slate-600 dark:text-gray-300">Phone: {content.contact.phone}</p>
-              <p className="mt-2 text-slate-600 dark:text-gray-300">Address: {content.contact.address}</p>
+              <p className="mt-2 text-blue-700 dark:text-gray-300">Phone: {content.contact.phone}</p>
+              <p className="mt-2 text-blue-700 dark:text-gray-300">Address: {content.contact.address}</p>
 
-              <div className="mt-6 rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-950/70">
-                <h5 className="font-medium text-slate-900 dark:text-white">{content.contact.whyChooseTitle}</h5>
-                <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-gray-300">
+              <div className="mt-6 rounded-lg border border-blue-200 bg-white p-4 dark:border-blue-700 dark:bg-blue-950/70">
+                <h5 className="font-medium text-blue-900 dark:text-white">{content.contact.whyChooseTitle}</h5>
+                <ul className="mt-3 space-y-2 text-sm text-blue-700 dark:text-gray-300">
                   {content.contact.whyChooseItems.map((item, index) => (
                     <li key={`${item}-${index}`}>• {item}</li>
                   ))}
@@ -292,7 +292,7 @@ export default async function Home({ searchParams }: HomePageProps) {
         </section>
       </main>
 
-      <footer className="w-full border-t border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-950 px-4 py-8 text-center text-sm text-slate-500 dark:text-gray-400 md:px-8">
+      <footer className="w-full border-t border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950 px-4 py-8 text-center text-sm text-blue-600 dark:text-gray-400 md:px-8">
         <div>{content.footer.copyright.replace("2024", String(currentYear))}</div>
         <div className="mt-1">{content.footer.note}</div>
       </footer>

@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark">
-      <body className={`${headingFont.variable} ${bodyFont.variable} bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 antialiased`}>
+      <body className={`${headingFont.variable} ${bodyFont.variable} bg-blue-50 text-blue-900 dark:bg-blue-950 dark:text-blue-50 antialiased`}>
         <Toaster position="top-right" />
         {children}
       </body>
