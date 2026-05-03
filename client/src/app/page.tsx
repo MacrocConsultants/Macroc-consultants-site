@@ -158,7 +158,7 @@ export default async function Home({ searchParams }: HomePageProps) {
 
       <main>
         <section
-          className="relative flex flex-col items-center gap-12 bg-cover bg-center px-6 py-24 md:flex-row"
+          className="relative flex flex-col items-center bg-cover bg-center px-6 py-24 md:flex-row"
           style={{
             backgroundImage: `url('${content.hero.backgroundImage}')`,
             backgroundBlendMode: "multiply",
@@ -167,14 +167,14 @@ export default async function Home({ searchParams }: HomePageProps) {
           {/* Use a dark overlay always for the hero so text remains readable, or adapt it. Keeping it dark for consistency with background image. */}
           <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] dark:bg-black/80" />
 
-          <div className="relative z-10 flex w-full flex-col items-center text-center gap-8 px-4 md:px-8">
+          <div className="relative z-10 flex w-full flex-col items-center text-center gap-4 px-4 md:px-8">
             <p className="text-sm font-semibold uppercase tracking-wide text-theme-primary">{content.hero.eyebrow}</p>
-            <h2 className="mt-4 text-4xl font-extrabold leading-tight text-white md:text-5xl max-w-4xl">
+            <h2 className="mt-2 text-4xl font-extrabold leading-tight text-white md:text-5xl max-w-4xl">
               {renderHeroTitle(content.hero.title, content.hero.highlight)}
             </h2>
-            <p className="mt-6 max-w-2xl text-lg text-gray-200">{content.hero.description}</p>
+            <p className="mt-2 max-w-2xl text-lg text-gray-200">{content.hero.description}</p>
 
-            <div className="mt-8 flex gap-4 justify-center">
+            <div className="mt-4 flex gap-4 justify-center">
               <a
                 href={content.hero.primaryButtonHref}
                 className="pro-interactive rounded-lg bg-theme-primary px-6 py-3 text-white shadow-md transition hover:scale-105 hover:shadow-xl"
@@ -189,7 +189,7 @@ export default async function Home({ searchParams }: HomePageProps) {
               </a>
             </div>
 
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center justify-center">
+            <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center justify-center">
               <Link
                 href="/login"
                 className="pro-interactive rounded-lg border border-theme-primary bg-white/10 px-6 py-3 text-center text-sm font-semibold text-white transition hover:bg-white/20"
@@ -204,7 +204,7 @@ export default async function Home({ searchParams }: HomePageProps) {
               </Link>
             </div>
 
-            <div className="mt-10 text-sm text-gray-300">
+            <div className="mt-6 text-sm text-gray-300">
               <div className="font-medium text-white">{content.hero.trustLabel}</div>
               <div className="mt-1 text-gray-200">{content.hero.trustItems.join(" · ")}</div>
             </div>
