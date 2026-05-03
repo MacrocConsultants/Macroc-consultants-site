@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import api from "../../utils/api";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
+import ThemeToggle from "../components/ThemeToggle";
 
 export default function Login() {
   const router = useRouter();
@@ -36,16 +37,19 @@ export default function Login() {
   };
 
   return (
-    <div className="page-enter min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 px-4">
+    <div className="page-enter relative min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-50 dark:from-slate-900 dark:to-slate-800 px-4">
 
-      <div className="bg-white/95 backdrop-blur-md p-8 rounded-2xl shadow-2xl max-w-md w-full border border-slate-200 transition duration-300 hover:shadow-[0_20px_45px_rgba(15,23,42,0.28)]">
+      <div className="relative bg-white/95 dark:bg-slate-900 dark:border-slate-700 backdrop-blur-md p-8 rounded-2xl shadow-2xl max-w-md w-full border border-slate-200 transition duration-300 hover:shadow-[0_20px_45px_rgba(15,23,42,0.28)]">
 
         {/* HEADER */}
+        <div className="absolute top-4 right-4">
+          <ThemeToggle />
+        </div>
         <div className="text-center mb-6">
-          <h2 className="text-2xl font-bold text-slate-800">
+          <h2 className="text-2xl font-bold text-blue-900 dark:text-white">
             MACROC TEAM LOGIN
           </h2>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-sm text-slate-500 dark:text-gray-400 mt-1">
             Login to your dashboard
           </p>
         </div>
@@ -62,20 +66,20 @@ export default function Login() {
 
           {/* EMAIL */}
           <div>
-            <label className="text-sm text-slate-600">Email</label>
+            <label className="text-sm text-slate-600 dark:text-gray-300">Email</label>
             <input
               type="email"
               required
               value={email}
               placeholder="you@example.com"
-              className="w-full border border-slate-300 p-3 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-blue-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-blue-900 dark:text-gray-100 p-3 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
           {/* PASSWORD */}
           <div>
-            <label className="text-sm text-slate-600">Password</label>
+            <label className="text-sm text-slate-600 dark:text-gray-300">Password</label>
 
             <div className="relative">
               <input
@@ -83,7 +87,7 @@ export default function Login() {
                 required
                 value={password}
                 placeholder="••••••••"
-                className="w-full border border-slate-300 p-3 rounded-lg mt-1 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border border-blue-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-blue-900 dark:text-gray-100 p-3 rounded-lg mt-1 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 onChange={(e) => setPassword(e.target.value)}
               />
 
@@ -91,7 +95,7 @@ export default function Login() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-gray-400"
               >
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
@@ -125,7 +129,7 @@ export default function Login() {
         </form>
 
         {/* REGISTER LINK */}
-        <p className="text-sm text-center mt-6 text-slate-500">
+        <p className="text-sm text-center mt-6 text-slate-500 dark:text-gray-400">
           New user?{" "}
           <span
             onClick={() => router.push("/register")}

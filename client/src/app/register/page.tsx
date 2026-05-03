@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import api from "../../utils/api";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
+import ThemeToggle from "../components/ThemeToggle";
 
 export default function Register() {
   const router = useRouter();
@@ -116,16 +117,19 @@ export default function Register() {
   };
 
   return (
-    <div className="page-enter min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 px-4">
+    <div className="page-enter relative min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-50 dark:from-slate-900 dark:to-slate-800 px-4">
 
-      <div className="bg-white/95 backdrop-blur-md p-8 rounded-2xl shadow-2xl max-w-md w-full border border-slate-200 transition duration-300 hover:shadow-[0_20px_45px_rgba(15,23,42,0.28)]">
+      <div className="relative bg-white/95 dark:bg-slate-900 dark:border-slate-700 backdrop-blur-md p-8 rounded-2xl shadow-2xl max-w-md w-full border border-slate-200 transition duration-300 hover:shadow-[0_20px_45px_rgba(15,23,42,0.28)]">
 
         {/* HEADER */}
+        <div className="absolute top-4 right-4">
+          <ThemeToggle />
+        </div>
         <div className="text-center mb-6">
-          <h2 className="text-2xl font-bold text-slate-800">
+          <h2 className="text-2xl font-bold text-blue-900 dark:text-white">
             Create Account
           </h2>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-sm text-slate-500 dark:text-gray-400 mt-1">
             Register to access your dashboard
           </p>
         </div>
@@ -143,7 +147,7 @@ export default function Register() {
             name="name"
             placeholder="Full Name"
             required
-            className="w-full border p-3 rounded"
+            className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-blue-900 dark:text-white p-3 rounded"
             onChange={handleChange}
           />
 
@@ -152,7 +156,7 @@ export default function Register() {
             type="email"
             placeholder="Email"
             required
-            className="w-full border p-3 rounded"
+            className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-blue-900 dark:text-white p-3 rounded"
             onChange={handleChange}
           />
 
@@ -164,14 +168,14 @@ export default function Register() {
             inputMode="numeric"
             pattern="[0-9]{10}"
             title="Enter a 10-digit mobile number"
-            className="w-full border p-3 rounded"
+            className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-blue-900 dark:text-white p-3 rounded"
             onChange={handleChange}
           />
 
           <select
             name="state"
             required
-            className="w-full border p-3 rounded bg-white"
+            className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-blue-900 dark:text-white p-3 rounded"
             onChange={handleChange}
             value={form.state}
           >
@@ -187,14 +191,14 @@ export default function Register() {
             name="city"
             placeholder="City"
             required
-            className="w-full border p-3 rounded"
+            className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-blue-900 dark:text-white p-3 rounded"
             onChange={handleChange}
           />
 
           <input
             name="businessName"
             placeholder="Business Name (Optional)"
-            className="w-full border p-3 rounded"
+            className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-blue-900 dark:text-white p-3 rounded"
             onChange={handleChange}
           />
 
@@ -205,7 +209,7 @@ export default function Register() {
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               required
-              className="w-full border p-3 rounded pr-10"
+              className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-blue-900 dark:text-white p-3 rounded pr-10"
               onChange={handleChange}
             />
 
@@ -240,7 +244,7 @@ export default function Register() {
               name="otherCategory"
               placeholder="Other Category"
               required
-              className="w-full border p-3 rounded"
+              className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-blue-900 dark:text-white p-3 rounded"
               onChange={handleChange}
             />
           )}
@@ -261,7 +265,7 @@ export default function Register() {
         </form>
 
         {/* LOGIN LINK */}
-        <p className="text-sm text-center mt-6 text-slate-500">
+        <p className="text-sm text-center mt-6 text-slate-500 dark:text-gray-400">
           Already have an account?{" "}
           <span
             onClick={() => router.push("/login")}
