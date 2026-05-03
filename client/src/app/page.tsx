@@ -87,7 +87,7 @@ export default async function Home({ searchParams }: HomePageProps) {
       <div className="page-enter">
       <header className="relative z-20 flex w-full items-center justify-between px-4 py-8 md:px-8">
         <div className="flex items-center gap-4">
-          <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-xl bg-white shadow-md dark:bg-black dark:shadow-lg dark:shadow-black/40">
+          <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-xl bg-black shadow-lg shadow-black/40">
             {content.header.logoImage ? (
               <img
                 src={content.header.logoImage}
@@ -95,7 +95,7 @@ export default async function Home({ searchParams }: HomePageProps) {
                 className="h-full w-full object-contain"
               />
             ) : (
-              <span className="text-xl font-bold text-slate-900 dark:text-white">{content.header.logoText}</span>
+              <span className="text-xl font-bold text-white">{content.header.logoText}</span>
             )}
           </div>
           <div>
