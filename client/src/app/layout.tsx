@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Toaster } from "react-hot-toast";
 import { Merriweather, Source_Sans_3 } from "next/font/google";
 import { getHomepageContent } from "./utils/getHomepageContent";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const headingFont = Merriweather({
   subsets: ["latin"],
@@ -60,6 +61,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className={`${headingFont.variable} ${bodyFont.variable} bg-theme-bg text-theme-fg antialiased`}>
         <Toaster position="top-right" />
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
